@@ -8,27 +8,30 @@
 
 #import "MainViewController.h"
 #import "DetailViewController.h"
+
+static NSString *const ReuseIdentifier = @"MyIdentifier";
+
 @interface MainViewController()<UITableViewDataSource, UITableViewDelegate>
-@property (nonatomic,strong) UITableView* tableView;
-@property (strong,nonatomic) NSMutableArray* tableData;
+@property (nonatomic, strong) UITableView *tableView;
+@property (strong, nonatomic) NSMutableArray *tableData;
 @end
 
 
 //NOTICE VIEWCONTROLLER LIFECYCLE!!
 @implementation MainViewController
-- (instancetype) init{
-    self=[super init];
-    if (self){
+
+- (instancetype) init {
+    self = [super init];
+    if (self) {
         _tableData = [NSMutableArray array];
     }
-    
     return self;
 }
 
-- (void) loadView{
+- (void) loadView {
     [super loadView];
     //self.view =     [[UIView alloc]init];
-    _tableView=[[UITableView alloc]init ];
+    _tableView = [[UITableView alloc] init];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
 
@@ -44,48 +47,44 @@
 //                                                                          options:0
 //                                                                          metrics:nil
 //                                                                            views:views]];
-    
-    [self.view addConstraint:    [NSLayoutConstraint constraintWithItem:self.tableView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
-    
-    [self.view addConstraint:        [NSLayoutConstraint constraintWithItem:self.tableView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:1 constant:0]];
-    //Layout
-    
-    //read object
+
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.tableView attribute:NSLayoutAttributeWidth
+                                                          relatedBy:NSLayoutRelationEqual toItem:self.view
+                                                          attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.tableView attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual toItem:self.view
+                                                          attribute:NSLayoutAttributeHeight multiplier:1 constant:0]];
 }
 
--(void) viewDidLoad{
-    //self.tableData = [NSArray arrayWithObjects:@"Egg Benedict", @"Mushroom Risotto", @"Full Breakfast", @"Hamburger", @"Ham and Egg Sandwich", @"Creme Brelee", @"White Chocolate Donut", @"Starbucks Coffee", @"Vegetable Curry", @"Instant Noodle with Egg", @"Noodle with BBQ Pork", @"Japanese Noodle with Pork", @"Green Tea", @"Thai Shrimp Cake", @"Angry Birds Cake", @"Ham and Cheese Panini", nil];
+- (void) viewDidLoad {
 
-        for(int i = 0 ; i < 99 ; i++){
-            [self.tableData addObject:[NSNumber numberWithInt:i]];
-        }
+    /*
+    * New method for create table view cell
+    * https://developer.apple.com/library/ios/documentation/uikit/reference/UITableView_Class/index.html#//apple_ref/occ/instm/UITableView/registerClass:forCellReuseIdentifier:
+    * */
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:ReuseIdentifier];
 
+    for (int i = 0; i < 99; i++) {
+        [self.tableData addObject:[NSNumber numberWithInt:i]];
+    }
 }
 
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    //return 1;
+- (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section {
     return [self.tableData count];
 }
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString* MyId=@"MyIdentifier";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyId];
-    if(cell==nil){
-        cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyId];
-    }
-    //cell.textLabel.text=@"Hiiii";
-    //cell.detailTextLabel.text=@"Huuuue";
-    cell.textLabel.text= [[self.tableData objectAtIndex:indexPath.row] stringValue ];
-    
+
+- (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ReuseIdentifier forIndexPath:indexPath];
+    NSNumber *number = self.tableData[indexPath.row];
+    cell.textLabel.text = [number stringValue];
     return cell;
-    
-    //return nil;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+- (void) tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *) indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    DetailViewController *detailVC = [[DetailViewController alloc]init];
-    [self.navigationController pushViewController:detailVC animated:YES ];
+    DetailViewController *detailVC = [[DetailViewController alloc] init];
+    [self.navigationController pushViewController:detailVC animated:YES];
 }
 
 @end
