@@ -9,7 +9,7 @@
 #import "DetailViewController.h"
 
 @interface DetailViewController ()
-//@property (nonatomic,strong) UIView* view;
+//@property (nonatomic, strong) UIView* mainview;
 @end
 
 @implementation DetailViewController
@@ -23,6 +23,19 @@
 - (void) loadView{
     [super loadView];
     self.view.backgroundColor=[UIColor whiteColor];
+    //self.view =     [[UIView alloc]init];
+    CGRect top;
+    top.origin.x = 0;
+    top.origin.y = 0;
+    top.size.height = 200;
+    top.size.width = 200;
+    //NSLog(@"receive string: %@",_data);
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectInset(top,5,5)];
+    label.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleBottomMargin;
+    label.textAlignment = NSTextAlignmentCenter;
+    label.text = [NSString stringWithFormat:@"Your data: %@", _data];
+    [self.view addSubview:label];
+
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
