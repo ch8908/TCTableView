@@ -8,41 +8,68 @@
 
 #import "DetailViewController.h"
 
-@interface DetailViewController ()
-//@property (nonatomic, strong) UIView* mainview;
+@interface DetailViewController()
+// make it private, it's safe.
+@property (nonatomic, strong) NSNumber *number;
 @end
 
 @implementation DetailViewController
-- (instancetype) init{
-    self=[super init];
-    if (self){
-        
-    }    
+
+// This is designated initializer
+- (instancetype) initWithNumber:(NSNumber *) number {
+    self = [super init];
+    if (self) {
+        _number = number;
+    }
     return self;
 }
-- (void) loadView{
+
+- (instancetype) init {
+    // All initializer should use designated initializer.
+    // if user call init, that's fine, or you can send error message from here.
+    return [self initWithNumber:@0];
+}
+
+- (void) loadView {
     [super loadView];
-    self.view.backgroundColor=[UIColor whiteColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     //self.view =     [[UIView alloc]init];
-    CGRect top;
-    top.origin.x = 0;
-    top.origin.y = 0;
-    top.size.height = 200;
-    top.size.width = 200;
+//    CGRect top;
+//    top.origin.x = 0;
+//    top.origin.y = 0;
+//    top.size.height = 200;
+//    top.size.width = 200;
     //NSLog(@"receive string: %@",_data);
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectInset(top,5,5)];
-    label.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleBottomMargin;
+    UILabel *label = [[UILabel alloc] init];
+
+    //If you want to use autolayout, must set translatesAutoresizingMaskIntoConstraints to NO.
+    label.translatesAutoresizingMaskIntoConstraints = NO;
     label.textAlignment = NSTextAlignmentCenter;
-    label.text = [NSString stringWithFormat:@"Your data: %@", _data];
+    label.text = [NSString stringWithFormat:@"Your data: %@", self.number];
     [self.view addSubview:label];
 
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:label
+                                                          attribute:NSLayoutAttributeCenterX
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeCenterX
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:label
+                                                          attribute:NSLayoutAttributeCenterY
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeCenterY
+                                                         multiplier:1.0
+                                                           constant:0]];
 }
-- (void)viewDidLoad {
+
+- (void) viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning {
+- (void) didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

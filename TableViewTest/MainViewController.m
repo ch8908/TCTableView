@@ -83,10 +83,8 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
 
 - (void) tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *) indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    DetailViewController *detailVC = [[DetailViewController alloc] init];
-    NSString* passString = [tableView cellForRowAtIndexPath:(indexPath)].textLabel.text;
-    //NSLog(@"send string: %@",passString);
-    detailVC.data = passString;
+    NSNumber *number = self.tableData[indexPath.row];
+    DetailViewController *detailVC = [[DetailViewController alloc] initWithNumber:number];
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 
