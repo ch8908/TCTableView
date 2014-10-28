@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F8413F5719FF3D8E00D2B2D0 /* Shop.m in Sources */ = {isa = PBXBuildFile; fileRef = F8413F5619FF3D8E00D2B2D0 /* Shop.m */; };
 		F89743C119F8D5E70072D8D3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F89743C019F8D5E70072D8D3 /* main.m */; };
 		F89743C419F8D5E70072D8D3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F89743C319F8D5E70072D8D3 /* AppDelegate.m */; };
 		F89743CC19F8D5E70072D8D3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F89743CB19F8D5E70072D8D3 /* Images.xcassets */; };
@@ -26,6 +27,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F8413F5519FF3D8E00D2B2D0 /* Shop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shop.h; sourceTree = "<group>"; };
+		F8413F5619FF3D8E00D2B2D0 /* Shop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Shop.m; sourceTree = "<group>"; };
 		F89743BB19F8D5E70072D8D3 /* TableViewTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TableViewTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F89743BF19F8D5E70072D8D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F89743C019F8D5E70072D8D3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -86,6 +89,8 @@
 				F89743E519F8D68F0072D8D3 /* MainViewController.m */,
 				F89743ED19F90D630072D8D3 /* DetailViewController.h */,
 				F89743EE19F90D630072D8D3 /* DetailViewController.m */,
+				F8413F5519FF3D8E00D2B2D0 /* Shop.h */,
+				F8413F5619FF3D8E00D2B2D0 /* Shop.m */,
 				F89743CB19F8D5E70072D8D3 /* Images.xcassets */,
 				F89743BE19F8D5E70072D8D3 /* Supporting Files */,
 			);
@@ -216,6 +221,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8413F5719FF3D8E00D2B2D0 /* Shop.m in Sources */,
 				F89743EF19F90D630072D8D3 /* DetailViewController.m in Sources */,
 				F89743C419F8D5E70072D8D3 /* AppDelegate.m in Sources */,
 				F89743E619F8D68F0072D8D3 /* MainViewController.m in Sources */,
@@ -393,6 +399,7 @@
 				F89743E019F8D5E80072D8D3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F89743E119F8D5E80072D8D3 /* Build configuration list for PBXNativeTarget "TableViewTestTests" */ = {
 			isa = XCConfigurationList;
@@ -401,6 +408,7 @@
 				F89743E319F8D5E80072D8D3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

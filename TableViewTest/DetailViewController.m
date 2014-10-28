@@ -62,6 +62,31 @@
                                                           attribute:NSLayoutAttributeCenterY
                                                          multiplier:1.0
                                                            constant:0]];
+
+    
+    
+    
+//    NSURL *myURL = [[NSURL alloc]initWithString:@"http://geekcoffee-staging.roachking.net/api/v1/shops?per_page=2&page=1"];
+//    
+//    NSData *myData = [[NSData alloc]initWithContentsOfURL:myURL];
+//    
+//    NSError *error;
+//    NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:myData options:NSJSONReadingMutableContainers error:&error];
+//    NSLog(@"%@",jsonArray[0][@"id"]);
+//    if(!error)
+//    {
+//        
+//        for (id element in jsonArray) {
+//            //
+//            //textview.text = [NSString stringWithFormat:@"Element: %@",element];
+//            NSLog(@"Element: %@",element);
+//            
+//            // text view will contain last element from the loop
+//        }
+//    }
+//    else{
+//        //textview.text = [NSString stringWithFormat:@"Error--%@",[error description]];
+//    }
 }
 
 - (void) viewDidLoad {
