@@ -15,11 +15,9 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
 
 @interface MainViewController()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
-@property (strong, nonatomic) NSMutableArray *tableData;
-@property (nonatomic, strong) NSMutableArray *shops;
-@property (nonatomic) TCClient *client;
-@property (nonatomic) int current_page;
-@property (nonatomic) BOOL requstingFlag;
+@property (nonatomic, strong) NSMutableArray *tableData;
+@property (nonatomic, strong) TCClient *client;
+@property (nonatomic, assign) BOOL requestingFlag;
 @end
 
 
@@ -30,16 +28,14 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
     self = [super init];
     if (self) {
         _tableData = [NSMutableArray array];
-        _shops = [NSMutableArray array];
         _client = [[TCClient alloc] init];
-        _current_page = 0;
     }
     return self;
 }
 
 - (void) loadView {
-    [super loadView];
-    //self.view =     [[UIView alloc]init];
+    UIView *view = [[UIView alloc] init];
+    self.view = view;
     _tableView = [[UITableView alloc] init];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -47,15 +43,15 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
     [self.view addSubview:self.tableView];
     //Layout
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
-//    NSDictionary* views = @{@"tableView":self.tableView};
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[tableView]|"
+//    NSDictionary *views = @{@"tableView" : self.tableView};
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[tableView]|"
 //                                                                      options:0
 //                                                                      metrics:nil
 //                                                                        views:views]];
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[tableView]|"
-//                                                                          options:0
-//                                                                          metrics:nil
-//                                                                            views:views]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[tableView]|"
+//                                                                      options:0
+//                                                                      metrics:nil
+//                                                                        views:views]];
 
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.tableView attribute:NSLayoutAttributeWidth
                                                           relatedBy:NSLayoutRelationEqual toItem:self.view
@@ -67,9 +63,6 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
 }
 
 - (void) viewDidLoad {
-
-    //NSNumber* number = @0;
-    //[number boolValue];
     /*
     * New method for create table view cell
     * https://developer.apple.com/library/ios/documentation/uikit/reference/UITableView_Class/index.html#//apple_ref/occ/instm/UITableView/registerClass:forCellReuseIdentifier:
@@ -119,18 +112,17 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
 //    NSLog(@"pos: %f of %f", y, h);
     float reload_distance = 10;
     if (y > h + reload_distance) {
-        if (self.requstingFlag) {
+        if (self.requestingFlag) {
             return;
         }
-        self.requstingFlag = YES;
+        self.requestingFlag = YES;
         int page = ceil(self.tableData.count / (CGFloat) SHOP_PAGE_SIZE);
         NSLog(@">>>>>>>>>>>> page = %i", page);
         [self.client fetchPage:page completion:^(NSArray *json) {
-            self.requstingFlag = NO;
+            self.requestingFlag = NO;
             [self reloadTableView:json];
         }];
     }
 }
-
 
 @end

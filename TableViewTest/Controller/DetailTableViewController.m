@@ -40,8 +40,8 @@ enum {
 }
 
 - (void) loadView {
-    [super loadView];
-    //self.view =     [[UIView alloc]init];
+    UIView *view = [[UIView alloc] init];
+    self.view = view;
     _tableView = [[UITableView alloc] init];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;

@@ -21,9 +21,9 @@ static NSString *const siteArg = @"v1/shops";
 
     if ([paramString length]) {
         urlString = [urlString stringByAppendingFormat:@"?%@", paramString];
-        urlString = [urlString substringWithRange:NSMakeRange(0, [urlString length]-1)];
+        urlString = [urlString substringWithRange:NSMakeRange(0, [urlString length] - 1)];
     }
-    NSLog(@">>>>>>>>>>>> urlString = %@", urlString);
+    NSLog(@">>>>>>>>>>>> request url string:%@", urlString);
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask *dataTask = [session dataTaskWithURL:[NSURL URLWithString:urlString]
                                             completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
