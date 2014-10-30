@@ -98,16 +98,9 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
 }
 
 - (void) reloadTableView:(NSArray *) json {
-//    [self.shops removeAllObjects];
-//    for (int i = 0; i < [json count]; i++) {
-//        [self.shops addObject:[[Shop alloc] initWithJSON:json[i]]];
-//    }
-
     for (int i = 0; i < [json count]; i++) {
-        //[self.shopInfo addObject:[self.shops[i] name]];
         [self.tableData addObject:[[Shop alloc] initWithJSON:json[i]]];
     }
-
     [self.tableView reloadData];
 }
 
@@ -131,6 +124,7 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
         }
         self.requstingFlag = YES;
         int page = ceil(self.tableData.count / (CGFloat) SHOP_PAGE_SIZE);
+        NSLog(@">>>>>>>>>>>> page = %i", page);
         [self.client fetchPage:page completion:^(NSArray *json) {
             self.requstingFlag = NO;
             [self reloadTableView:json];

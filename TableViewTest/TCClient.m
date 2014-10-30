@@ -11,7 +11,7 @@ static NSString *const siteArg = @"v1/shops";
 @implementation TCClient
 
 - (void) fetchPage:(int) page completion:(void (^)(NSArray *)) completion {
-    NSDictionary *params = @{@"per_page" : @(SHOP_PAGE_SIZE), @"pages" : @(page + 1)};
+    NSDictionary *params = @{@"per_page" : @(SHOP_PAGE_SIZE), @"page" : @(page + 1)};
     NSMutableString *paramString = [[NSMutableString alloc] init];
     [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         [paramString appendFormat:@"%@=%@&", key, obj];
@@ -21,8 +21,9 @@ static NSString *const siteArg = @"v1/shops";
 
     if ([paramString length]) {
         urlString = [urlString stringByAppendingFormat:@"?%@", paramString];
+        urlString = [urlString substringWithRange:NSMakeRange(0, [urlString length]-1)];
     }
-
+    NSLog(@">>>>>>>>>>>> urlString = %@", urlString);
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask *dataTask = [session dataTaskWithURL:[NSURL URLWithString:urlString]
                                             completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
