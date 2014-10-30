@@ -72,40 +72,9 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
     * https://developer.apple.com/library/ios/documentation/uikit/reference/UITableView_Class/index.html#//apple_ref/occ/instm/UITableView/registerClass:forCellReuseIdentifier:
     * */
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:ReuseIdentifier];
-    [self.client fetchStoresWithCompletion:^(NSArray *json) {
+    [self.client fetchPage:0 completion:^(NSArray *json) {
         [self reloadTableView:json];
     }];
-
-
-    /*NSURLSession *session = [NSURLSession sharedSession];
-    NSString *urlString = @"http://geekcoffee-staging.roachking.net/api/v1/shops?per_page=10&page=1";
-    //NSString *urlString = @"http://go.redirectingat.com/?id=1342X589339&site=code.tutsplus.com&xs=1&isjs=1&url=https%3A%2F%2Fitunes.apple.com%2Fsearch%3Fterm%3Dapple%26media%3Dsoftware&xguid=3f7ae087b8c9cff96b4c549b7f227dc9&xcreo=0&xed=0&sref=http%3A%2F%2Fcode.tutsplus.com%2Ftutorials%2Fnetworking-with-nsurlsession-part-1--mobile-21394&pref=https%3A%2F%2Fwww.google.com.tw%2F&xtz=-480";
-    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:[NSURL URLWithString:urlString] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        //NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:2 error:nil];
-        NSArray *json = [NSJSONSerialization JSONObjectWithData:data options:2 error:nil];
-
-        dispatch_async(dispatch_get_main_queue(), ^{
-            //UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 100, 200, 100)];
-//            UILabel *jsonLabel = [[UILabel alloc] init];
-//            jsonLabel.translatesAutoresizingMaskIntoConstraints = NO;
-//            jsonLabel.textAlignment = NSTextAlignmentCenter;
-//            jsonLabel.textColor = [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1];
-
-            //            for(id key in json){
-            //                //NSLog(@"key=%@,value=%@", key, [json objectForKey:key]);
-            //                NSLog(@"key=%@",[[key stringValue]stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]);
-            //
-            //                //jsonLabel.text = [key stringValue];
-            //
-            //            }
-            //jsonLabel.text = json; // or whatever you wanted from `skillData`
-            //[self.view addSubview:jsonLabel];
-
-            [self reloadTableView:json];
-
-        });
-    }];
-    [dataTask resume];*/
 }
 
 - (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section {
@@ -157,6 +126,20 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
 
     [self.tableView reloadData];
 }
+
+//- (void) scrollViewDidScroll:(UIScrollView *) scrollView {
+//    CGPoint offset = scrollView.contentOffset;
+//    CGRect bounds = scrollView.bounds;
+//    CGSize size = scrollView.contentSize;
+//    UIEdgeInsets inset = scrollView.contentInset;
+//    float y = offset.y + bounds.size.height - inset.bottom;
+//    float h = size.height;
+//
+//    float reload_distance = 10;
+//    if (y > h + reload_distance){
+//        NSLog(@"Load more content!");
+//    }
+//}
 
 
 @end

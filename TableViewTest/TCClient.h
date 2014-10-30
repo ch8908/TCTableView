@@ -7,5 +7,6 @@
 
 
 @interface TCClient : NSObject
-- (void) fetchStoresWithCompletion:(void (^)(NSArray *)) completion;
+//- (void)fetch:(NSString *)location params:(NSDictionary *)params completion:(void (^)(id,NSError*))completion
+- (void) fetchPage:(int) page completion:(void (^)(NSArray *)) completion;
 @end

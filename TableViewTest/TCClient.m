@@ -5,18 +5,36 @@
 
 #import "TCClient.h"
 
+static NSString *const site = @"http://geekcoffee-staging.roachking.net/api/";
+static NSString *const siteArg = @"v1/shops";
+
+static const int SHOP_PAGE_SIZE = 30;
 
 @implementation TCClient
-- (void) fetchStoresWithCompletion:(void (^)(NSArray *)) completion {
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSString *urlString = @"http://geekcoffee-staging.roachking.net/api/v1/shops?per_page=10&page=1";
-    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:[NSURL URLWithString:urlString]
-                            completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                 NSArray *json = [NSJSONSerialization JSONObjectWithData:data options:2 error:nil];
-                                      dispatch_async(dispatch_get_main_queue(), ^{
-                                                    completion(json);
-                            });
+
+- (void) fetchPage:(int) page completion:(void (^)(NSArray *)) completion {
+    NSDictionary *params = @{@"per_page" : @(SHOP_PAGE_SIZE), @"pages" : @(page + 1)};
+    NSMutableString *paramString = [[NSMutableString alloc] init];
+    [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        [paramString appendFormat:@"%@=%@&", key, obj];
     }];
+
+    NSString *urlString = [NSString stringWithFormat:@"%@%@", site, siteArg];
+
+    if ([paramString length]) {
+        urlString = [urlString stringByAppendingFormat:@"?%@", paramString];
+    }
+
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:[NSURL URLWithString:urlString]
+                                            completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                NSArray *json = [NSJSONSerialization JSONObjectWithData:data options:2
+                                                                                                  error:nil];
+                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                    completion(json);
+                                                });
+                                            }];
     [dataTask resume];
 }
+
 @end
