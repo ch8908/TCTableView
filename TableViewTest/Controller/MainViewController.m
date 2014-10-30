@@ -18,6 +18,8 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
 @property (strong, nonatomic) NSMutableArray *tableData;
 @property (nonatomic, strong) NSMutableArray *shops;
 @property (nonatomic) TCClient *client;
+@property (nonatomic) int current_page;
+@property (nonatomic) BOOL requstingFlag;
 @end
 
 
@@ -30,6 +32,7 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
         _tableData = [NSMutableArray array];
         _shops = [NSMutableArray array];
         _client = [[TCClient alloc] init];
+        _current_page = 0;
     }
     return self;
 }
@@ -99,7 +102,7 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
 
 - (void) reloadTableView:(NSArray *) json {
     //Shop *shop1 = [[Shop alloc] initWithJSON:json[0]];
-
+    [self.shops removeAllObjects];
     for (int i = 0; i < [json count]; i++) {
         [self.shops addObject:[[Shop alloc] initWithJSON:json[i]]];
     }
@@ -111,7 +114,7 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
 //    }
     //NSLog(@"%@",shop1.shopId);
     //NSLog(@"%@",shop1.powerOutlets);
-    [self.tableData removeAllObjects];
+//    [self.tableData removeAllObjects];
 //    for (int i = 0 ; i < [json count] ; i++){
 //        //NSLog(@"%@",json[i]);
 //        //NSLog(@"element %d :",i);
@@ -127,19 +130,32 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
     [self.tableView reloadData];
 }
 
-//- (void) scrollViewDidScroll:(UIScrollView *) scrollView {
-//    CGPoint offset = scrollView.contentOffset;
-//    CGRect bounds = scrollView.bounds;
-//    CGSize size = scrollView.contentSize;
-//    UIEdgeInsets inset = scrollView.contentInset;
-//    float y = offset.y + bounds.size.height - inset.bottom;
-//    float h = size.height;
-//
-//    float reload_distance = 10;
-//    if (y > h + reload_distance){
-//        NSLog(@"Load more content!");
-//    }
-//}
+- (void) scrollViewDidScroll:(UIScrollView *) scrollView {
+    CGPoint offset = scrollView.contentOffset;
+    CGRect bounds = scrollView.bounds;
+    CGSize size = scrollView.contentSize;
+    UIEdgeInsets inset = scrollView.contentInset;
+    float y = offset.y + bounds.size.height - inset.bottom;
+    float h = size.height;
+//    NSLog(@"offset: %f", offset.y);
+//    NSLog(@"content.height: %f", size.height);
+//    NSLog(@"bounds.height: %f", bounds.size.height);
+//    NSLog(@"inset.top: %f", inset.top);
+//    NSLog(@"inset.bottom: %f", inset.bottom);
+//    NSLog(@"pos: %f of %f", y, h);
+    float reload_distance = 10;
+    if (y > h + reload_distance) {
+        if (self.requstingFlag) {
+            return;
+        }
+        self.requstingFlag = YES;
+        int page = ceil(self.tableData.count / (CGFloat) SHOP_PAGE_SIZE);
+        [self.client fetchPage:page completion:^(NSArray *json) {
+            self.requstingFlag = NO;
+            [self reloadTableView:json];
+        }];
+    }
+}
 
 
 @end

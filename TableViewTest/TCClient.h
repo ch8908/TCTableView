@@ -5,6 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
+static const int SHOP_PAGE_SIZE = 30;
 
 @interface TCClient : NSObject
 //- (void)fetch:(NSString *)location params:(NSDictionary *)params completion:(void (^)(id,NSError*))completion

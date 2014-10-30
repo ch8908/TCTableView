@@ -8,8 +8,6 @@
 static NSString *const site = @"http://geekcoffee-staging.roachking.net/api/";
 static NSString *const siteArg = @"v1/shops";
 
-static const int SHOP_PAGE_SIZE = 30;
-
 @implementation TCClient
 
 - (void) fetchPage:(int) page completion:(void (^)(NSArray *)) completion {
