@@ -86,45 +86,26 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
 
 - (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ReuseIdentifier forIndexPath:indexPath];
-    NSString *string = self.tableData[indexPath.row];
-    cell.textLabel.text = string;
+    Shop *shop = self.tableData[indexPath.row];
+    cell.textLabel.text = shop.name;
     return cell;
 }
 
 - (void) tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *) indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSNumber *number = self.tableData[indexPath.row];
-    //DetailViewController *detailVC = [[DetailViewController alloc] initWithNumber:number];
-    DetailTableViewController *detailTVC = [[DetailTableViewController alloc] initWithShop:self.shops[indexPath.row]];
-    //[self.navigationController pushViewController:detailVC animated:YES];
+    DetailTableViewController *detailTVC = [[DetailTableViewController alloc] initWithShop:self.tableData[indexPath.row]];
     [self.navigationController pushViewController:detailTVC animated:YES];
 }
 
 - (void) reloadTableView:(NSArray *) json {
-    //Shop *shop1 = [[Shop alloc] initWithJSON:json[0]];
-    [self.shops removeAllObjects];
+//    [self.shops removeAllObjects];
+//    for (int i = 0; i < [json count]; i++) {
+//        [self.shops addObject:[[Shop alloc] initWithJSON:json[i]]];
+//    }
+
     for (int i = 0; i < [json count]; i++) {
-        [self.shops addObject:[[Shop alloc] initWithJSON:json[i]]];
-    }
-//    for (int i = 0 ; i < [shops count] ; i++){
-//        NSLog(@"shop%i id=%@",i+1,[shops[i] shopId]);
-//        NSLog(@"shop%i lat=%@",i+1,[shops[i] lat]);
-//        NSLog(@"shop%i lng=%@",i+1,[shops[i] lng]);
-//        NSLog(@"shop%i name=%@",i+1,[shops[i] name]);
-//    }
-    //NSLog(@"%@",shop1.shopId);
-    //NSLog(@"%@",shop1.powerOutlets);
-//    [self.tableData removeAllObjects];
-//    for (int i = 0 ; i < [json count] ; i++){
-//        //NSLog(@"%@",json[i]);
-//        //NSLog(@"element %d :",i);
-//        for (id key in json[i]){
-//            //NSLog(@"key=%@, value=%@",key,json[i][key]);
-//            [self.tableData addObject:key];
-//        }
-//    }
-    for (int i = 0; i < [self.shops count]; i++) {
-        [self.tableData addObject:[self.shops[i] name]];
+        //[self.shopInfo addObject:[self.shops[i] name]];
+        [self.tableData addObject:[[Shop alloc] initWithJSON:json[i]]];
     }
 
     [self.tableView reloadData];

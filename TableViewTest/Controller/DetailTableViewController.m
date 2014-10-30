@@ -24,7 +24,7 @@ enum {
 
 @interface DetailTableViewController()<UITableViewDataSource, UITableViewDelegate>;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *tableData;
+@property (nonatomic, strong) NSMutableArray *shopInfo;
 @property (nonatomic, strong) Shop *shop;
 @end
 
@@ -33,7 +33,7 @@ enum {
 - (instancetype) initWithShop:(Shop *) shop {
     self = [super init];
     if (self) {
-        _tableData = [NSMutableArray array];
+        _shopInfo = [NSMutableArray array];
         _shop = shop;
     }
     return self;
@@ -60,13 +60,13 @@ enum {
 - (void) viewDidLoad {
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:ReuseIdentifier];
     [super viewDidLoad];
-    [self.tableData addObject:self.shop.shopId];
-    [self.tableData addObject:self.shop.name];
-    [self.tableData addObject:self.shop.lat];
-    [self.tableData addObject:self.shop.lng];
-    [self.tableData addObject:self.shop.isWifiFree];
-    [self.tableData addObject:self.shop.powerOutlets];
-    //NSLog(@"%@//%@//%i",self.shop.name,self.tableData,[self.tableData count]);
+    [self.shopInfo addObject:self.shop.shopId];
+    [self.shopInfo addObject:self.shop.name];
+    [self.shopInfo addObject:self.shop.lat];
+    [self.shopInfo addObject:self.shop.lng];
+    [self.shopInfo addObject:self.shop.isWifiFree];
+    [self.shopInfo addObject:self.shop.powerOutlets];
+    //NSLog(@"%@//%@//%i",self.shop.name,self.shopInfo,[self.shopInfo count]);
 }
 
 - (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section {
@@ -78,37 +78,37 @@ enum {
 }
 
 - (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath {
-    //NSLog(@"%@",[self.tableData[indexPath.row] stringValue]);
+    //NSLog(@"%@",[self.shopInfo[indexPath.row] stringValue]);
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ReuseIdentifier forIndexPath:indexPath];
-    //NSString *string = self.tableData[indexPath.row];
+    //NSString *string = self.shopInfo[indexPath.row];
     //NSLog(@"%i",indexPath.section);
     switch (indexPath.section) {
         case ShopIdSection: {
-            NSNumber *number = self.tableData[indexPath.section];
+            NSNumber *number = self.shopInfo[indexPath.section];
             cell.textLabel.text = [number stringValue];
             break;
         }
         case ShopNameSection: {
-            cell.textLabel.text = self.tableData[indexPath.section];
+            cell.textLabel.text = self.shopInfo[indexPath.section];
             break;
         }
         case ShopLatSection: {
-            NSNumber *number = self.tableData[indexPath.section];
+            NSNumber *number = self.shopInfo[indexPath.section];
             cell.textLabel.text = [number stringValue];
             break;
         }
         case ShopLngSection: {
-            NSNumber *number = self.tableData[indexPath.section];
+            NSNumber *number = self.shopInfo[indexPath.section];
             cell.textLabel.text = [number stringValue];
             break;
         }
         case ShopWifiFreeSetion: {
-            NSNumber *number = self.tableData[indexPath.section];
+            NSNumber *number = self.shopInfo[indexPath.section];
             cell.textLabel.text = [number stringValue];
             break;
         }
         case ShopPowerOutletSection: {
-            NSNumber *number = self.tableData[indexPath.section];
+            NSNumber *number = self.shopInfo[indexPath.section];
             cell.textLabel.text = [number stringValue];
             break;
         }
