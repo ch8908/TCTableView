@@ -7,10 +7,11 @@
 //
 
 #import "DetailViewController.h"
-
+#import "Shop.h"
 @interface DetailViewController()
 // make it private, it's safe.
 @property (nonatomic, strong) NSNumber *number;
+
 @end
 
 @implementation DetailViewController
