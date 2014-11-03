@@ -15,6 +15,7 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
 
 @interface MainViewController()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, strong) NSMutableArray *tableData;
 @property (nonatomic, strong) TCClient *client;
 @property (nonatomic, assign) BOOL requestingFlag;
@@ -37,6 +38,7 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
     UIView *view = [[UIView alloc] init];
     self.view = view;
     _tableView = [[UITableView alloc] init];
+    _refreshControl = [[UIRefreshControl alloc] init];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
 
@@ -67,10 +69,44 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
     * New method for create table view cell
     * https://developer.apple.com/library/ios/documentation/uikit/reference/UITableView_Class/index.html#//apple_ref/occ/instm/UITableView/registerClass:forCellReuseIdentifier:
     * */
+    self.refreshControl.backgroundColor = [UIColor whiteColor];
+    self.refreshControl.tintColor = [UIColor blackColor];
+    [self.tableView addSubview:self.refreshControl];
+    [self.refreshControl addTarget:self action:@selector(getLatestData)
+                  forControlEvents:UIControlEventValueChanged];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:ReuseIdentifier];
+    NSLog(@">>>>>>>>>>>> page = 1");
     [self.client fetchPage:0 completion:^(NSArray *json) {
         [self reloadTableView:json];
     }];
+}
+
+- (void) getLatestData {
+    if (self.requestingFlag) {
+        return;
+    }
+    self.requestingFlag = YES;
+
+    NSLog(@"reloading...");
+    [self.client fetchPage:0 completion:^(NSArray *json) {
+        self.requestingFlag = NO;
+        [self.tableData removeAllObjects];
+        for (int i = 0; i < [json count]; i++) {
+            [self.tableData addObject:[[Shop alloc] initWithJSON:json[i]]];
+        }
+        [self.tableView reloadData];
+    }];
+    if (self.refreshControl) {
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"MMM d, h:mm a"];
+        NSString *title = [NSString stringWithFormat:@"Last update: %@", [formatter stringFromDate:[NSDate date]]];
+        NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor blackColor]
+                                                                    forKey:NSForegroundColorAttributeName];
+        NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attrsDictionary];
+        self.refreshControl.attributedTitle = attributedTitle;
+
+        [self.refreshControl endRefreshing];
+    }
 }
 
 - (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section {
@@ -117,7 +153,7 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
         }
         self.requestingFlag = YES;
         int page = ceil(self.tableData.count / (CGFloat) SHOP_PAGE_SIZE);
-        NSLog(@">>>>>>>>>>>> page = %i", page);
+        NSLog(@">>>>>>>>>>>> page = %i", page+1);
         [self.client fetchPage:page completion:^(NSArray *json) {
             self.requestingFlag = NO;
             [self reloadTableView:json];
