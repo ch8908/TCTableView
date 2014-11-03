@@ -10,9 +10,15 @@
 #import "DetailTableViewController.h"
 #import "Shop.h"
 #import "TCClient.h"
-#import "FooterView.h"
+#import "BottomCell.h"
 
 static NSString *const ReuseIdentifier = @"MyIdentifier";
+
+enum {
+    ContentsSection = 0,
+    BottomSection,
+    TotalSection
+};
 
 @interface MainViewController()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -33,6 +39,7 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
         _client = [[TCClient alloc] init];
         _tableView = [[UITableView alloc] init];
         _refreshControl = [[UIRefreshControl alloc] init];
+
     }
     return self;
 }
@@ -76,6 +83,9 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
     [self.refreshControl addTarget:self action:@selector(getLatestData)
                   forControlEvents:UIControlEventValueChanged];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:ReuseIdentifier];
+    [self.tableView registerClass:[BottomCell class] forCellReuseIdentifier:BottomCellReuseIdentifier];
+
+
     NSLog(@">>>>>>>>>>>> page = 1");
     [self.client fetchPage:0 completion:^(NSArray *json) {
         [self reloadTableView:json];
@@ -111,15 +121,35 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
     }
 }
 
-- (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section {
-    return [self.tableData count];
+- (NSInteger) numberOfSectionsInTableView:(UITableView *) tableView {
+    return TotalSection;
 }
 
+- (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger) section {
+    if (ContentsSection == section) {
+        return [self.tableData count];
+    } else if (BottomSection == section) {
+        return self.tableData.count > 0 ? 1 : 0;
+    }
+    return 0;
+}
+
+
 - (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ReuseIdentifier forIndexPath:indexPath];
-    Shop *shop = self.tableData[indexPath.row];
-    cell.textLabel.text = shop.name;
-    return cell;
+    if (indexPath.section == ContentsSection) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ReuseIdentifier forIndexPath:indexPath];
+        Shop *shop = self.tableData[indexPath.row];
+        cell.textLabel.text = shop.name;
+        return cell;
+    }
+    else if (indexPath.section == BottomSection) {
+        BottomCell *bottomCell = [tableView dequeueReusableCellWithIdentifier:BottomCellReuseIdentifier
+                                                                 forIndexPath:indexPath];
+        NSLog(@"Bottom cell initialized");
+
+        return bottomCell;
+    }
+    return nil;
 }
 
 - (void) tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *) indexPath {
@@ -128,13 +158,13 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
     [self.navigationController pushViewController:detailTVC animated:YES];
 }
 
-- (CGFloat) tableView:(UITableView *) tableView heightForFooterInSection:(NSInteger) section {
-    return 80;
-}
-
-- (UIView *) tableView:(UITableView *) tableView viewForFooterInSection:(NSInteger) section {
-    return [[FooterView alloc] initFooterViewWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 80)];
-}
+//- (CGFloat) tableView:(UITableView *) tableView heightForFooterInSection:(NSInteger) section {
+//    return 80;
+//}
+//
+//- (UIView *) tableView:(UITableView *) tableView viewForFooterInSection:(NSInteger) section {
+//    return [[FooterView alloc] initFooterViewWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 80)];
+//}
 
 - (void) reloadTableView:(NSArray *) json {
     for (int i = 0; i < [json count]; i++) {
@@ -156,19 +186,24 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
 //    NSLog(@"inset.top: %f", inset.top);
 //    NSLog(@"inset.bottom: %f", inset.bottom);
 //    NSLog(@"pos: %f of %f", y, h);
-//    float reload_distance = 10;
-//    if (y > h + reload_distance) {
-//        if (self.requestingFlag) {
-//            return;
-//        }
-//
-//        int page = ceil(self.tableData.count / (CGFloat) SHOP_PAGE_SIZE);
-//        NSLog(@">>>>>>>>>>>> page = %i", page + 1);
-//        [self.client fetchPage:page completion:^(NSArray *json) {
-//            self.requestingFlag = NO;
-//            [self reloadTableView:json];
-//        }];
-//    }
+    float reload_distance = 10;
+    if (y > h + reload_distance) {
+        if (self.requestingFlag) {
+            return;
+        }
+        BottomCell *bottomCell = (BottomCell *) [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0
+                                                                                                         inSection:BottomSection]];
+        NSLog(@"bottomCell...%@", bottomCell);
+        [bottomCell addActivityIndicator];
+        self.requestingFlag = YES;
+        int page = ceil(self.tableData.count / (CGFloat) SHOP_PAGE_SIZE);
+        NSLog(@">>>>>>>>>>>> page = %i", page + 1);
+        [self.client fetchPage:page completion:^(NSArray *json) {
+            self.requestingFlag = NO;
+            [self reloadTableView:json];
+        }];
+        //[self.bottomCell.indicatorView stopAnimating];
+    }
 }
 
 @end

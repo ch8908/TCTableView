@@ -11,6 +11,7 @@
 		4291224BFFDC2579E53415F6 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42912A778A3FCC11DA26D58A /* DetailViewController.m */; };
 		4291268A78B2AC5F109A0809 /* FooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42912439535760A37926BFD1 /* FooterView.m */; };
 		429127FF10361D9AC0C01CD0 /* TCClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 429124D22AEFD1095F691651 /* TCClient.m */; };
+		42912955C5C6E538E352B4C8 /* BottomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 429126440AA5591EFA356D2A /* BottomCell.m */; };
 		42912A7B149EF1B84A32A331 /* DetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42912BC748554B2B4C275B3D /* DetailTableViewController.m */; };
 		42912C47518152A9D65EBA62 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4291241913885532DC76CD4A /* MainViewController.m */; };
 		F89743C119F8D5E70072D8D3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F89743C019F8D5E70072D8D3 /* main.m */; };
@@ -36,12 +37,14 @@
 		4291247B8BCB2CB5EC6D371D /* TCClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCClient.h; sourceTree = "<group>"; };
 		429124D22AEFD1095F691651 /* TCClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCClient.m; sourceTree = "<group>"; };
 		4291251F6E69503EBF01D1DB /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		429126440AA5591EFA356D2A /* BottomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomCell.m; sourceTree = "<group>"; };
 		42912802C3FA9524C327CBC2 /* FooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FooterView.h; sourceTree = "<group>"; };
 		42912856FC47C6FA4DFE486A /* Shop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shop.h; sourceTree = "<group>"; };
 		4291297EF7C5239ACB65E74A /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		42912A1D4960F3D513041B2B /* Shop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Shop.m; sourceTree = "<group>"; };
 		42912A778A3FCC11DA26D58A /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		42912BC748554B2B4C275B3D /* DetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewController.m; sourceTree = "<group>"; };
+		42912DC813BB85F0CC82DFD7 /* BottomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomCell.h; sourceTree = "<group>"; };
 		F89743BB19F8D5E70072D8D3 /* TableViewTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TableViewTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F89743BF19F8D5E70072D8D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F89743C019F8D5E70072D8D3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -76,6 +79,8 @@
 			children = (
 				42912439535760A37926BFD1 /* FooterView.m */,
 				42912802C3FA9524C327CBC2 /* FooterView.h */,
+				429126440AA5591EFA356D2A /* BottomCell.m */,
+				42912DC813BB85F0CC82DFD7 /* BottomCell.h */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -276,6 +281,7 @@
 				429127FF10361D9AC0C01CD0 /* TCClient.m in Sources */,
 				4291268A78B2AC5F109A0809 /* FooterView.m in Sources */,
 				4291201519774DBF60AE3EB9 /* Shop.m in Sources */,
+				42912955C5C6E538E352B4C8 /* BottomCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

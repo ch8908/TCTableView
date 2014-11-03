@@ -4,7 +4,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
+extern NSString *const BottomCellReuseIdentifier;
 
-@interface bottomCell : NSObject
+@interface BottomCell : UITableViewCell
+//@property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
+
+- (void) addActivityIndicator;
 @end
