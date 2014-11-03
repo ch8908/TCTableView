@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4291201519774DBF60AE3EB9 /* Shop.m in Sources */ = {isa = PBXBuildFile; fileRef = 42912A1D4960F3D513041B2B /* Shop.m */; };
 		4291224BFFDC2579E53415F6 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42912A778A3FCC11DA26D58A /* DetailViewController.m */; };
+		4291268A78B2AC5F109A0809 /* FooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42912439535760A37926BFD1 /* FooterView.m */; };
 		429127FF10361D9AC0C01CD0 /* TCClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 429124D22AEFD1095F691651 /* TCClient.m */; };
 		42912A7B149EF1B84A32A331 /* DetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42912BC748554B2B4C275B3D /* DetailTableViewController.m */; };
 		42912C47518152A9D65EBA62 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4291241913885532DC76CD4A /* MainViewController.m */; };
-		F8413F5719FF3D8E00D2B2D0 /* Shop.m in Sources */ = {isa = PBXBuildFile; fileRef = F8413F5619FF3D8E00D2B2D0 /* Shop.m */; };
 		F89743C119F8D5E70072D8D3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F89743C019F8D5E70072D8D3 /* main.m */; };
 		F89743C419F8D5E70072D8D3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F89743C319F8D5E70072D8D3 /* AppDelegate.m */; };
 		F89743CC19F8D5E70072D8D3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F89743CB19F8D5E70072D8D3 /* Images.xcassets */; };
@@ -30,15 +31,17 @@
 
 /* Begin PBXFileReference section */
 		4291241913885532DC76CD4A /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		42912439535760A37926BFD1 /* FooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FooterView.m; sourceTree = "<group>"; };
 		42912440BC4F43D9FC45A276 /* DetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTableViewController.h; sourceTree = "<group>"; };
 		4291247B8BCB2CB5EC6D371D /* TCClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCClient.h; sourceTree = "<group>"; };
 		429124D22AEFD1095F691651 /* TCClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCClient.m; sourceTree = "<group>"; };
 		4291251F6E69503EBF01D1DB /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		42912802C3FA9524C327CBC2 /* FooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FooterView.h; sourceTree = "<group>"; };
+		42912856FC47C6FA4DFE486A /* Shop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shop.h; sourceTree = "<group>"; };
 		4291297EF7C5239ACB65E74A /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		42912A1D4960F3D513041B2B /* Shop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Shop.m; sourceTree = "<group>"; };
 		42912A778A3FCC11DA26D58A /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		42912BC748554B2B4C275B3D /* DetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewController.m; sourceTree = "<group>"; };
-		F8413F5519FF3D8E00D2B2D0 /* Shop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shop.h; sourceTree = "<group>"; };
-		F8413F5619FF3D8E00D2B2D0 /* Shop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Shop.m; sourceTree = "<group>"; };
 		F89743BB19F8D5E70072D8D3 /* TableViewTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TableViewTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F89743BF19F8D5E70072D8D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F89743C019F8D5E70072D8D3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -68,6 +71,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		429123FBD2F9EE5BFF682E2E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				42912439535760A37926BFD1 /* FooterView.m */,
+				42912802C3FA9524C327CBC2 /* FooterView.h */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		42912632E69DC9C8EBD22EA5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +91,15 @@
 				4291297EF7C5239ACB65E74A /* MainViewController.h */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		429127EEAE5CE7AE808D4F32 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				42912A1D4960F3D513041B2B /* Shop.m */,
+				42912856FC47C6FA4DFE486A /* Shop.h */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		42912C9E3B859B67D3D45F79 /* Service */ = {
@@ -113,12 +134,12 @@
 			children = (
 				F89743C219F8D5E70072D8D3 /* AppDelegate.h */,
 				F89743C319F8D5E70072D8D3 /* AppDelegate.m */,
-				F8413F5519FF3D8E00D2B2D0 /* Shop.h */,
-				F8413F5619FF3D8E00D2B2D0 /* Shop.m */,
 				F89743CB19F8D5E70072D8D3 /* Images.xcassets */,
 				F89743BE19F8D5E70072D8D3 /* Supporting Files */,
 				42912632E69DC9C8EBD22EA5 /* Controller */,
 				42912C9E3B859B67D3D45F79 /* Service */,
+				429123FBD2F9EE5BFF682E2E /* View */,
+				429127EEAE5CE7AE808D4F32 /* Model */,
 			);
 			path = TableViewTest;
 			sourceTree = "<group>";
@@ -247,13 +268,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8413F5719FF3D8E00D2B2D0 /* Shop.m in Sources */,
 				F89743C419F8D5E70072D8D3 /* AppDelegate.m in Sources */,
 				F89743C119F8D5E70072D8D3 /* main.m in Sources */,
 				42912A7B149EF1B84A32A331 /* DetailTableViewController.m in Sources */,
 				42912C47518152A9D65EBA62 /* MainViewController.m in Sources */,
 				4291224BFFDC2579E53415F6 /* DetailViewController.m in Sources */,
 				429127FF10361D9AC0C01CD0 /* TCClient.m in Sources */,
+				4291268A78B2AC5F109A0809 /* FooterView.m in Sources */,
+				4291201519774DBF60AE3EB9 /* Shop.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

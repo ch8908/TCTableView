@@ -4,7 +4,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
+@interface FooterView : UIView
++ (UIView *) initFooterView;
 
-@interface FooterView : NSObject
++ (void) startAnimation:(UIView *) footerView;
 @end

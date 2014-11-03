@@ -10,6 +10,7 @@
 #import "DetailTableViewController.h"
 #import "Shop.h"
 #import "TCClient.h"
+#import "FooterView.h"
 
 static NSString *const ReuseIdentifier = @"MyIdentifier";
 
@@ -18,8 +19,7 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, strong) NSMutableArray *tableData;
 @property (nonatomic, strong) TCClient *client;
-//@property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
-@property (nonatomic, strong) UIView *footerView;
+@property (nonatomic, strong) FooterView *footerview;
 @property (nonatomic, assign) BOOL requestingFlag;
 @end
 
@@ -34,7 +34,7 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
         _client = [[TCClient alloc] init];
         _tableView = [[UITableView alloc] init];
         _refreshControl = [[UIRefreshControl alloc] init];
-        //_indicatorView = [[UIActivityIndicatorView alloc] init];
+        _footerview = [FooterView initFooterView];
     }
     return self;
 }
@@ -44,8 +44,7 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
     self.view = view;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    //self.tableView.tableFooterView = self.indicatorView;
-    [self initFooterView];
+    self.tableView.tableFooterView = self.footerview;
     [self.view addSubview:self.tableView];
     //Layout
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -68,16 +67,6 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
                                                           attribute:NSLayoutAttributeHeight multiplier:1 constant:0]];
 }
 
-- (void) initFooterView {
-    self.footerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 40.0)];
-    UIActivityIndicatorView * actInd = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    actInd.tag = 10;
-    actInd.frame = CGRectMake(150.0, 5.0, 20.0, 20.0);
-    actInd.hidesWhenStopped = YES;
-    [self.footerView addSubview:actInd];
-    actInd = nil;
-
-}
 
 - (void) viewDidLoad {
     /*
@@ -166,8 +155,13 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
         if (self.requestingFlag) {
             return;
         }
-        self.tableView.tableFooterView = self.footerView;
-        [(UIActivityIndicatorView *)[self.footerView viewWithTag:10] startAnimating];
+        //[FooterView startAnimation:self.tableView.tableFooterView];
+
+        UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray] ;
+        [spinner startAnimating];
+        spinner.frame = CGRectMake(0, 0, 320, 44);
+        self.tableView.tableFooterView = spinner;
+
         int page = ceil(self.tableData.count / (CGFloat) SHOP_PAGE_SIZE);
         NSLog(@">>>>>>>>>>>> page = %i", page+1);
         [self.client fetchPage:page completion:^(NSArray *json) {
