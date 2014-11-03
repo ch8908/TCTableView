@@ -9,30 +9,30 @@
 #import "Shop.h"
 
 @interface Shop()
-@property (nonatomic, strong) NSDictionary* jsonElement;
+@property (nonatomic, strong) NSDictionary *jsonElement;
 @end
 
 @implementation Shop
 
 
-- (instancetype) initWithJSON : (NSDictionary*) json{
-    for(id key in json){
-        if ([key isEqual: @"id"]){
+- (instancetype) initWithJSON:(NSDictionary *) json {
+    for (id key in json) {
+        if ([key isEqual:@"id"]) {
             self.shopId = json[key];
         }
-        else if ([key isEqual: @"lat"]){
+        else if ([key isEqual:@"lat"]) {
             self.lat = json[key];
         }
-        else if ([key isEqual: @"lng"]){
+        else if ([key isEqual:@"lng"]) {
             self.lng = json[key];
         }
-        else if ([key isEqual: @"name"]){
+        else if ([key isEqual:@"name"]) {
             self.name = json[key];
         }
-        else if ([key isEqual: @"is_wifi_free"]){
+        else if ([key isEqual:@"is_wifi_free"]) {
             self.isWifiFree = json[key];
         }
-        else if ([key isEqual: @"power_outlets"]){
+        else if ([key isEqual:@"power_outlets"]) {
             self.powerOutlets = json[key];
         }
     }

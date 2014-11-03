@@ -8,6 +8,7 @@
 
 #import "DetailViewController.h"
 #import "Shop.h"
+
 @interface DetailViewController()
 // make it private, it's safe.
 @property (nonatomic, strong) NSNumber *number;
@@ -64,9 +65,9 @@
                                                          multiplier:1.0
                                                            constant:0]];
 
-    
-    
-    
+
+
+
 //    NSURL *myURL = [[NSURL alloc]initWithString:@"http://geekcoffee-staging.roachking.net/api/v1/shops?per_page=2&page=1"];
 //    
 //    NSData *myData = [[NSData alloc]initWithContentsOfURL:myURL];

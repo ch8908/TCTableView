@@ -6,9 +6,8 @@
 #import "BottomCell.h"
 
 NSString *const BottomCellReuseIdentifier = @"BottomCell";
-@interface BottomCell()
-//@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
-@end
+
+
 @implementation BottomCell
 
 - (void) addActivityIndicator {
@@ -34,13 +33,6 @@ NSString *const BottomCellReuseIdentifier = @"BottomCell";
                                                                      attribute:NSLayoutAttributeCenterY
                                                                     multiplier:1
                                                                       constant:0]];
-//        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.activityIndicator attribute:NSLayoutAttributeWidth
-//                                                                relatedBy:NSLayoutRelationEqual toItem:self.contentView
-//                                                                attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
-//
-//        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.activityIndicator attribute:NSLayoutAttributeHeight
-//                                                                relatedBy:NSLayoutRelationEqual toItem:self.contentView
-//                                                                attribute:NSLayoutAttributeHeight multiplier:1 constant:0]];
         NSLog(@"indicator triggered");
     }
 }

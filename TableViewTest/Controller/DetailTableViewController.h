@@ -13,5 +13,5 @@
 
 
 @interface DetailTableViewController : UIViewController
-- (instancetype) initWithShop: (Shop*) shop;
+- (instancetype) initWithShop:(Shop *) shop;
 @end

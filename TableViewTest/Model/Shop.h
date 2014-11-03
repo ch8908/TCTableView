@@ -15,5 +15,6 @@
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, strong) NSNumber *isWifiFree;
 @property (nonatomic, strong) NSNumber *powerOutlets;
-- (instancetype) initWithJSON : (NSDictionary*) json;
+
+- (instancetype) initWithJSON:(NSDictionary *) json;
 @end
