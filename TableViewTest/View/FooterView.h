@@ -7,7 +7,7 @@
 #import <UIKit/UIKit.h>
 
 @interface FooterView : UIView
-+ (UIView *) initFooterView;
+@property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
 
-+ (void) startAnimation:(UIView *) footerView;
+- (instancetype) initFooterViewWithFrame:(CGRect) frame;
 @end

@@ -19,7 +19,6 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, strong) NSMutableArray *tableData;
 @property (nonatomic, strong) TCClient *client;
-@property (nonatomic, strong) FooterView *footerview;
 @property (nonatomic, assign) BOOL requestingFlag;
 @end
 
@@ -34,7 +33,6 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
         _client = [[TCClient alloc] init];
         _tableView = [[UITableView alloc] init];
         _refreshControl = [[UIRefreshControl alloc] init];
-        _footerview = [FooterView initFooterView];
     }
     return self;
 }
@@ -44,7 +42,6 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
     self.view = view;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.tableView.tableFooterView = self.footerview;
     [self.view addSubview:self.tableView];
     //Layout
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -106,7 +103,8 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
         NSString *title = [NSString stringWithFormat:@"Last update: %@", [formatter stringFromDate:[NSDate date]]];
         NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor blackColor]
                                                                     forKey:NSForegroundColorAttributeName];
-        NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attrsDictionary];
+        NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title
+                                                                              attributes:attrsDictionary];
         self.refreshControl.attributedTitle = attributedTitle;
 
         [self.refreshControl endRefreshing];
@@ -130,6 +128,14 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
     [self.navigationController pushViewController:detailTVC animated:YES];
 }
 
+- (CGFloat) tableView:(UITableView *) tableView heightForFooterInSection:(NSInteger) section {
+    return 80;
+}
+
+- (UIView *) tableView:(UITableView *) tableView viewForFooterInSection:(NSInteger) section {
+    return [[FooterView alloc] initFooterViewWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 80)];
+}
+
 - (void) reloadTableView:(NSArray *) json {
     for (int i = 0; i < [json count]; i++) {
         [self.tableData addObject:[[Shop alloc] initWithJSON:json[i]]];
@@ -150,25 +156,19 @@ static NSString *const ReuseIdentifier = @"MyIdentifier";
 //    NSLog(@"inset.top: %f", inset.top);
 //    NSLog(@"inset.bottom: %f", inset.bottom);
 //    NSLog(@"pos: %f of %f", y, h);
-    float reload_distance = 10;
-    if (y > h + reload_distance) {
-        if (self.requestingFlag) {
-            return;
-        }
-        //[FooterView startAnimation:self.tableView.tableFooterView];
-
-        UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray] ;
-        [spinner startAnimating];
-        spinner.frame = CGRectMake(0, 0, 320, 44);
-        self.tableView.tableFooterView = spinner;
-
-        int page = ceil(self.tableData.count / (CGFloat) SHOP_PAGE_SIZE);
-        NSLog(@">>>>>>>>>>>> page = %i", page+1);
-        [self.client fetchPage:page completion:^(NSArray *json) {
-            self.requestingFlag = NO;
-            [self reloadTableView:json];
-        }];
-    }
+//    float reload_distance = 10;
+//    if (y > h + reload_distance) {
+//        if (self.requestingFlag) {
+//            return;
+//        }
+//
+//        int page = ceil(self.tableData.count / (CGFloat) SHOP_PAGE_SIZE);
+//        NSLog(@">>>>>>>>>>>> page = %i", page + 1);
+//        [self.client fetchPage:page completion:^(NSArray *json) {
+//            self.requestingFlag = NO;
+//            [self reloadTableView:json];
+//        }];
+//    }
 }
 
 @end
