@@ -11,7 +11,7 @@
 
 - (void) createTable;
 
-- (NSArray *) select;
+- (NSArray *) selectAll;
 
 - (void) insert:(NSNumber *) shopId andJson:(NSArray *) jsonArray;
 

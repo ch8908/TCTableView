@@ -11,7 +11,9 @@
 #import "Shop.h"
 #import "TCClient.h"
 #import "BottomCell.h"
-
+#import "Dao.h"
+#import "RowObject.h"
+#import "ShopCell.h"
 static NSString *const ReuseIdentifier = @"MyIdentifier";
 
 enum {
@@ -25,6 +27,7 @@ enum {
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, strong) NSMutableArray *tableData;
 @property (nonatomic, strong) TCClient *client;
+@property (nonatomic, strong) Dao *dao;
 @property (nonatomic, assign) BOOL requestingFlag;
 @end
 
@@ -39,6 +42,8 @@ enum {
         _client = [[TCClient alloc] init];
         _tableView = [[UITableView alloc] init];
         _refreshControl = [[UIRefreshControl alloc] init];
+        _dao = [[Dao alloc] initWithDatabaseName:@"db.sqlite"];
+        [_dao createTable];
 
     }
     return self;
@@ -82,13 +87,14 @@ enum {
     [self.tableView addSubview:self.refreshControl];
     [self.refreshControl addTarget:self action:@selector(getLatestData)
                   forControlEvents:UIControlEventValueChanged];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:ReuseIdentifier];
+    [self.tableView registerClass:[ShopCell class] forCellReuseIdentifier:ReuseIdentifier];
     [self.tableView registerClass:[BottomCell class] forCellReuseIdentifier:BottomCellReuseIdentifier];
 
 
     NSLog(@">>>>>>>>>>>> page = 1");
     [self.client fetchPage:0 completion:^(NSArray *json) {
         [self reloadTableView:json];
+        //[self.dao insert:<#(NSNumber *)shopId#> andJson:<#(NSArray *)jsonArray#>];
     }];
 }
 
@@ -111,8 +117,7 @@ enum {
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"MMM d, h:mm a"];
         NSString *title = [NSString stringWithFormat:@"Last update: %@", [formatter stringFromDate:[NSDate date]]];
-        NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor blackColor]
-                                                                    forKey:NSForegroundColorAttributeName];
+        NSDictionary *attrsDictionary = @{NSForegroundColorAttributeName : [UIColor blackColor]};
         NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title
                                                                               attributes:attrsDictionary];
         self.refreshControl.attributedTitle = attributedTitle;
@@ -135,11 +140,16 @@ enum {
 }
 
 
+
 - (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath {
     if (indexPath.section == ContentsSection) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ReuseIdentifier forIndexPath:indexPath];
+
+//        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ReuseIdentifier forIndexPath:indexPath];
+        ShopCell *cell = [tableView dequeueReusableCellWithIdentifier:ReuseIdentifier
+                                                         forIndexPath:indexPath];
         Shop *shop = self.tableData[indexPath.row];
-        cell.textLabel.text = shop.name;
+        [cell insertData:shop];
+//        cell.textLabel.text = shop.name;
         return cell;
     }
     else if (indexPath.section == BottomSection) {
@@ -167,8 +177,15 @@ enum {
 //}
 
 - (void) reloadTableView:(NSArray *) json {
+    NSLog(@"...reloading...");
     for (int i = 0; i < [json count]; i++) {
         [self.tableData addObject:[[Shop alloc] initWithJSON:json[i]]];
+        [self.dao insert:[json[i] objectForKey:@"id"] andJson:json[i]];
+    }
+    NSArray * selectResults = [[NSArray alloc] initWithArray:[self.dao selectAll]];
+    NSLog(@"%@",selectResults);
+    for(int i = 0 ; i < [selectResults count] ; i++) {
+        NSLog(@"%@,%@,%@", [selectResults[i] id],[selectResults[i] jsonString],[selectResults[i] insert_time]);
     }
     [self.tableView reloadData];
 }

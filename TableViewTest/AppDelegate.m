@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "MainViewController.h"
+#import "UIColor+Util.h"
 
 //#import "NavigationController.h"
 @interface AppDelegate()
@@ -20,9 +21,28 @@
 - (BOOL) application:(UIApplication *) application didFinishLaunchingWithOptions:(NSDictionary *) launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
     MainViewController *mainVC = [[MainViewController alloc] init];
+    MainViewController *otherVC = [[MainViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:mainVC];
-    self.window.rootViewController = navigationController;
+    UINavigationController *otherNavigationController = [[UINavigationController alloc] initWithRootViewController:otherVC];
+    NSArray *controllers = @[navigationController, otherNavigationController];
+    tabBarController.viewControllers = controllers;
+    UIImage *anImage = [UIImage imageNamed:@"settings_icon.png"];
+    UITabBar *tabBar = tabBarController.tabBar;
+    UITabBarItem *theItem0 = (tabBar.items)[0];
+    UITabBarItem *theItem1 = (tabBar.items)[1];
+    [theItem0 initWithTitle:@"Tab1" image:anImage tag:0];
+//    [theItem0.title sizeWithAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:20]}];
+    [theItem1 initWithTitle:@"Tab2" image:anImage tag:0];
+//    theItem0.title = @"Tab1";
+//    theItem1.title = @"Tab2";
+//    theItem0.image = anImage;
+//    theItem1.image = anImage;
+    theItem0.badgeValue = @"1";
+    [[UITabBar appearance] setTintColor:[UIColor hexARGB:0x3FFF0000]];
+    [[UITabBar appearance] setBarTintColor:[UIColor hexARGB:0x33C0C0C0]];
+    self.window.rootViewController = tabBarController;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

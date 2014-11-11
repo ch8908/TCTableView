@@ -9,7 +9,6 @@
 #import "DetailTableViewController.h"
 #import "Shop.h"
 
-
 static NSString *const ReuseIdentifier = @"MyIdentifier";
 
 enum {
@@ -55,6 +54,7 @@ enum {
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.tableView attribute:NSLayoutAttributeHeight
                                                           relatedBy:NSLayoutRelationEqual toItem:self.view
                                                           attribute:NSLayoutAttributeHeight multiplier:1 constant:0]];
+
 }
 
 - (void) viewDidLoad {

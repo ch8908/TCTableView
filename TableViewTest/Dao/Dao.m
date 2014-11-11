@@ -35,7 +35,7 @@
 
 }
 
-- (NSArray *) select {
+- (NSArray *) selectAll{
     NSArray *result = [NSArray array];
     RowObject *rowObject = [[RowObject alloc] init];
     FMResultSet *queried = [self.database executeQuery:@"SELECT * FROM SHOP"];
@@ -44,7 +44,8 @@
         rowObject.jsonString = [queried stringForColumnIndex:1];
         rowObject.insert_time = [NSNumber numberWithInt:[queried intForColumnIndex:2]];
         [result arrayByAddingObject:rowObject];
-        NSLog(@"id %i | json %@ | insert time %i", rowObject.id, rowObject.jsonString, rowObject.insert_time);
+        NSLog(@"id %@ | json %@ | insert time %@", rowObject.id, rowObject.jsonString, rowObject.insert_time);
+        NSLog(@"id %@ | json %@ | insert time %@", [result.lastObject id], [result.lastObject jsonString], [result.lastObject insert_time]);
     }
     return result;
 }

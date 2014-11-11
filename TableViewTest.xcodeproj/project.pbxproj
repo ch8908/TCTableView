@@ -9,11 +9,18 @@
 /* Begin PBXBuildFile section */
 		4291201519774DBF60AE3EB9 /* Shop.m in Sources */ = {isa = PBXBuildFile; fileRef = 42912A1D4960F3D513041B2B /* Shop.m */; };
 		4291224BFFDC2579E53415F6 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42912A778A3FCC11DA26D58A /* DetailViewController.m */; };
+		429124B7D15BA8B73A319906 /* ShopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42912228BA0E2DB684B3E836 /* ShopCell.m */; };
+		4291265AFB7CDF5D6B51A639 /* collection_button_icon_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 42912662BD8D93C03E272DD2 /* collection_button_icon_selected.png */; };
 		4291268A78B2AC5F109A0809 /* FooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42912439535760A37926BFD1 /* FooterView.m */; };
+		4291270D428BA2EBE4C51BC2 /* RowObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 429128811733BE609456A3A9 /* RowObject.m */; };
 		429127FF10361D9AC0C01CD0 /* TCClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 429124D22AEFD1095F691651 /* TCClient.m */; };
+		429128FAC9A4D3446F08DB95 /* UIColor+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 429121DC8153C187E7790C9C /* UIColor+Util.m */; };
 		42912955C5C6E538E352B4C8 /* BottomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 429126440AA5591EFA356D2A /* BottomCell.m */; };
+		4291297046674A059317221D /* Dao.m in Sources */ = {isa = PBXBuildFile; fileRef = 42912353B7C5BF1AC6E0FF6A /* Dao.m */; };
+		4291299A2C734FCF5FDB5444 /* settings_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 42912F1C4EDC9EE464F1B866 /* settings_icon.png */; };
 		42912A7B149EF1B84A32A331 /* DetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42912BC748554B2B4C275B3D /* DetailTableViewController.m */; };
 		42912C47518152A9D65EBA62 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4291241913885532DC76CD4A /* MainViewController.m */; };
+		42912F901053D6938EBF86CB /* collection_button_icon_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 429128889EDD1ED62912C9EB /* collection_button_icon_normal.png */; };
 		639C4B8FCFEF3B15C0A4ECE6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 174F9B758361345AB7AFC1BA /* libPods.a */; };
 		F89743C119F8D5E70072D8D3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F89743C019F8D5E70072D8D3 /* main.m */; };
 		F89743C419F8D5E70072D8D3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F89743C319F8D5E70072D8D3 /* AppDelegate.m */; };
@@ -34,20 +41,31 @@
 /* Begin PBXFileReference section */
 		146FF21EB356A56804E3AA58 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		174F9B758361345AB7AFC1BA /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		429121DC8153C187E7790C9C /* UIColor+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Util.m"; sourceTree = "<group>"; };
+		42912228BA0E2DB684B3E836 /* ShopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCell.m; sourceTree = "<group>"; };
+		42912353B7C5BF1AC6E0FF6A /* Dao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dao.m; sourceTree = "<group>"; };
 		4291241913885532DC76CD4A /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		42912439535760A37926BFD1 /* FooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FooterView.m; sourceTree = "<group>"; };
 		42912440BC4F43D9FC45A276 /* DetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTableViewController.h; sourceTree = "<group>"; };
 		4291247B8BCB2CB5EC6D371D /* TCClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCClient.h; sourceTree = "<group>"; };
+		429124C4C78A9724C292218D /* UIColor+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Util.h"; sourceTree = "<group>"; };
 		429124D22AEFD1095F691651 /* TCClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCClient.m; sourceTree = "<group>"; };
 		4291251F6E69503EBF01D1DB /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		429126440AA5591EFA356D2A /* BottomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomCell.m; sourceTree = "<group>"; };
+		42912662BD8D93C03E272DD2 /* collection_button_icon_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = collection_button_icon_selected.png; sourceTree = "<group>"; };
 		42912802C3FA9524C327CBC2 /* FooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FooterView.h; sourceTree = "<group>"; };
 		42912856FC47C6FA4DFE486A /* Shop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shop.h; sourceTree = "<group>"; };
+		429128811733BE609456A3A9 /* RowObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RowObject.m; sourceTree = "<group>"; };
+		429128889EDD1ED62912C9EB /* collection_button_icon_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = collection_button_icon_normal.png; sourceTree = "<group>"; };
 		4291297EF7C5239ACB65E74A /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		42912A1D4960F3D513041B2B /* Shop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Shop.m; sourceTree = "<group>"; };
 		42912A778A3FCC11DA26D58A /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		42912AA6043DD4728C4253A0 /* ShopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCell.h; sourceTree = "<group>"; };
+		42912B9B2F863CD8BA94F11A /* RowObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RowObject.h; sourceTree = "<group>"; };
 		42912BC748554B2B4C275B3D /* DetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewController.m; sourceTree = "<group>"; };
+		42912C2E44534F8949B8BC5A /* Dao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dao.h; sourceTree = "<group>"; };
 		42912DC813BB85F0CC82DFD7 /* BottomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomCell.h; sourceTree = "<group>"; };
+		42912F1C4EDC9EE464F1B866 /* settings_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_icon.png; sourceTree = "<group>"; };
 		49EF5621463DAA216CB2B006 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		F89743BB19F8D5E70072D8D3 /* TableViewTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TableViewTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F89743BF19F8D5E70072D8D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -88,6 +106,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		429122E01D06D011EABFE811 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				42912F1C4EDC9EE464F1B866 /* settings_icon.png */,
+				42912662BD8D93C03E272DD2 /* collection_button_icon_selected.png */,
+				429128889EDD1ED62912C9EB /* collection_button_icon_normal.png */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		429123FBD2F9EE5BFF682E2E /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +123,8 @@
 				42912802C3FA9524C327CBC2 /* FooterView.h */,
 				429126440AA5591EFA356D2A /* BottomCell.m */,
 				42912DC813BB85F0CC82DFD7 /* BottomCell.h */,
+				42912228BA0E2DB684B3E836 /* ShopCell.m */,
+				42912AA6043DD4728C4253A0 /* ShopCell.h */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -108,6 +138,8 @@
 				4291241913885532DC76CD4A /* MainViewController.m */,
 				42912A778A3FCC11DA26D58A /* DetailViewController.m */,
 				4291297EF7C5239ACB65E74A /* MainViewController.h */,
+				429124C4C78A9724C292218D /* UIColor+Util.h */,
+				429121DC8153C187E7790C9C /* UIColor+Util.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -117,8 +149,19 @@
 			children = (
 				42912A1D4960F3D513041B2B /* Shop.m */,
 				42912856FC47C6FA4DFE486A /* Shop.h */,
+				429128811733BE609456A3A9 /* RowObject.m */,
+				42912B9B2F863CD8BA94F11A /* RowObject.h */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		42912A314931143941088CFA /* Dao */ = {
+			isa = PBXGroup;
+			children = (
+				42912353B7C5BF1AC6E0FF6A /* Dao.m */,
+				42912C2E44534F8949B8BC5A /* Dao.h */,
+			);
+			path = Dao;
 			sourceTree = "<group>";
 		};
 		42912C9E3B859B67D3D45F79 /* Service */ = {
@@ -169,6 +212,8 @@
 				42912C9E3B859B67D3D45F79 /* Service */,
 				429123FBD2F9EE5BFF682E2E /* View */,
 				429127EEAE5CE7AE808D4F32 /* Model */,
+				42912A314931143941088CFA /* Dao */,
+				429122E01D06D011EABFE811 /* Resource */,
 			);
 			path = TableViewTest;
 			sourceTree = "<group>";
@@ -284,6 +329,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F89743CC19F8D5E70072D8D3 /* Images.xcassets in Resources */,
+				4291299A2C734FCF5FDB5444 /* settings_icon.png in Resources */,
+				4291265AFB7CDF5D6B51A639 /* collection_button_icon_selected.png in Resources */,
+				42912F901053D6938EBF86CB /* collection_button_icon_normal.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,6 +391,10 @@
 				4291268A78B2AC5F109A0809 /* FooterView.m in Sources */,
 				4291201519774DBF60AE3EB9 /* Shop.m in Sources */,
 				42912955C5C6E538E352B4C8 /* BottomCell.m in Sources */,
+				4291270D428BA2EBE4C51BC2 /* RowObject.m in Sources */,
+				4291297046674A059317221D /* Dao.m in Sources */,
+				429128FAC9A4D3446F08DB95 /* UIColor+Util.m in Sources */,
+				429124B7D15BA8B73A319906 /* ShopCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,6 +502,7 @@
 				INFOPLIST_FILE = TableViewTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 			};
 			name = Debug;
 		};
@@ -462,6 +515,7 @@
 				INFOPLIST_FILE = TableViewTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 			};
 			name = Release;
 		};
