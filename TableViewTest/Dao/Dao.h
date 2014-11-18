@@ -17,5 +17,5 @@
 
 - (void) update:(NSNumber *) shopId andJson:(NSArray *) jsonArray;
 
-- (void) delete:(NSNumber *) shopId andJson:(NSArray *) jsonArray;
+- (void) delete:(NSNumber *) shopId;
 @end

@@ -36,9 +36,17 @@ enum {
         _tableView = [[UITableView alloc] init];
         _dao = [[Dao alloc] initWithDatabaseName:@"db.sqlite"];
         [_dao createTable];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(databaseChangedHandler)
+                                                     name:@"DatabaseChanged" object:nil];
 
     }
     return self;
+}
+
+- (void) databaseChangedHandler {
+
+    [self reloadTableView];
+
 }
 
 - (void) loadView {
@@ -124,15 +132,15 @@ enum {
 //        [self.tableData addObject:[[Shop alloc] initWithJSON:json[i]]];
 //        [self.dao insert:[json[i] objectForKey:@"id"] andJson:json[i]];
 //    }
-
+    [self.tableData removeAllObjects];
     NSArray *selectResults = [NSArray arrayWithArray:[self.dao selectAll]];
-    NSLog(@"Dao out, count %i", [selectResults count]);
+//    NSLog(@"Dao out, count %i", [selectResults count]);
 //    for (int i = 0; i < [selectResults count]; i++) {
 //        NSLog(@"id %@ | json %@ | insert time %@", [selectResults[i] id], [selectResults[i] jsonString], [selectResults[i] insert_time]);
 //    }
 
     for (RowObject *row in selectResults) {
-        NSLog(@"id %@ | json %@ | insert time %@", row.id, row.jsonString, row.insert_time);
+//        NSLog(@"id %@ | json %@ | insert time %@", row.id, row.jsonString, row.insert_time);
         NSData *data = [row.jsonString dataUsingEncoding:NSUTF8StringEncoding];
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
                                                              options:nil

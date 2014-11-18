@@ -94,6 +94,9 @@ NSString *const shopCellReuseIdentifier = @"ShopCell";
     }
     else if (5 == sender.state) {
         NSLog(@">>>>>>>>>>>> sender state = %i", sender.state);
+        if([self.delegate respondsToSelector:@selector(didClickSelectedCollectCell:button:shop:)]){
+            [self.delegate didClickSelectedCollectCell:self button:sender shop:self.shop];
+        }
         [sender setSelected:NO];
     }
 }

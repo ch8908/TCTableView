@@ -68,7 +68,8 @@
 
 }
 
-- (void) delete:(NSNumber *) shopId andJson:(NSArray *) jsonArray {
+- (void) delete:(NSNumber *) shopId{
+    [self.database executeUpdate:@"DELETE FROM SHOP WHERE identifier = ?",shopId];
 }
 
 

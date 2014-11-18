@@ -158,8 +158,8 @@ enum {
 
         [cell insertData:shop];
         BOOL collectFlag = NO;
-        for (NSNumber * id in self.collectedShopId) {
-            if([[self.tableData[indexPath.row] shopId] isEqual:id] ){
+        for (NSNumber *id in self.collectedShopId) {
+            if ([[self.tableData[indexPath.row] shopId] isEqual:id]) {
 
                 collectFlag = YES;
                 break;
@@ -240,6 +240,11 @@ enum {
                @"is_wifi_free" : shop.isWifiFree,
                @"power_outlets" : shop.powerOutlets}
     ];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"DatabaseChanged" object:nil];
 }
 
+- (void) didClickSelectedCollectCell:(ShopCell *) cell button:(UIButton *) button shop:(Shop *) shop {
+    [self.dao delete:shop.shopId];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"DatabaseChanged" object:nil];
+}
 @end
