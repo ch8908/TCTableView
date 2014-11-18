@@ -69,6 +69,7 @@
 }
 
 - (void) delete:(NSNumber *) shopId{
+    NSLog(@"Delete shop id = %@",shopId);
     [self.database executeUpdate:@"DELETE FROM SHOP WHERE identifier = ?",shopId];
 }
 

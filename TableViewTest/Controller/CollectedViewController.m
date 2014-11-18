@@ -81,6 +81,23 @@ enum {
 
 }
 
+- (BOOL) tableView:(UITableView *) tableView canEditRowAtIndexPath:(NSIndexPath *) indexPath {
+    return YES;
+}
+
+- (void) tableView:(UITableView *) tableView commitEditingStyle:(UITableViewCellEditingStyle) editingStyle forRowAtIndexPath:(NSIndexPath *) indexPath {
+    if(editingStyle == UITableViewCellEditingStyleDelete ){
+
+        [self.dao delete:[self.tableData[indexPath.row] shopId]];
+        [self.tableData removeObjectAtIndex:indexPath.row];
+        [tableView reloadData];
+        NSArray *selectResults = [NSArray arrayWithArray:[self.dao selectAll]];
+        for(RowObject *row in selectResults){
+            NSLog(@"ID = %@",row.id);
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DatabaseChangedByCollectedController" object:nil];
+    }
+}
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *) tableView {
     return TotalSection;
@@ -128,10 +145,6 @@ enum {
 
 - (void) reloadTableView {
     NSLog(@"...reloading...");
-//    for (int i = 0; i < [json count]; i++) {
-//        [self.tableData addObject:[[Shop alloc] initWithJSON:json[i]]];
-//        [self.dao insert:[json[i] objectForKey:@"id"] andJson:json[i]];
-//    }
     [self.tableData removeAllObjects];
     NSArray *selectResults = [NSArray arrayWithArray:[self.dao selectAll]];
 //    NSLog(@"Dao out, count %i", [selectResults count]);
@@ -140,7 +153,6 @@ enum {
 //    }
 
     for (RowObject *row in selectResults) {
-//        NSLog(@"id %@ | json %@ | insert time %@", row.id, row.jsonString, row.insert_time);
         NSData *data = [row.jsonString dataUsingEncoding:NSUTF8StringEncoding];
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
                                                              options:nil
@@ -149,22 +161,5 @@ enum {
 
     }
     [self.tableView reloadData];
-}
-
-- (void) scrollViewDidScroll:(UIScrollView *) scrollView {
-    CGPoint offset = scrollView.contentOffset;
-    CGRect bounds = scrollView.bounds;
-    CGSize size = scrollView.contentSize;
-    UIEdgeInsets inset = scrollView.contentInset;
-    float y = offset.y + bounds.size.height - inset.bottom;
-    float h = size.height;
-    float reload_distance = 10;
-    if (y > h + reload_distance) {
-        BottomCell *bottomCell = (BottomCell *) [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0
-                                                                                                         inSection:BottomSection]];
-        NSLog(@"bottomCell...%@", bottomCell);
-        [bottomCell addActivityIndicator];
-
-    }
 }
 @end

@@ -47,9 +47,23 @@ enum {
         _dao = [[Dao alloc] initWithDatabaseName:@"db.sqlite"];
         [_dao createTable];
         _collectedShopId = [NSMutableArray array];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(DatabaseChangedByCollectedControllerHandler)
+                                                     name:@"DatabaseChangedByCollectedController" object:nil];
 
     }
     return self;
+}
+
+- (void) DatabaseChangedByCollectedControllerHandler {
+    NSLog(@">>>>>>>>>>>>> db changed by cvc reloading");
+    NSArray *selectResults = [NSArray arrayWithArray:[self.dao selectAll]];
+    [self.collectedShopId removeAllObjects];
+    for (RowObject *row in selectResults) {
+        [self.collectedShopId addObject:row.id];
+        NSLog(@">>>>>>>>>>>> [self.collectedShopId lastObject] = %@", [self.collectedShopId lastObject]);
+    }
+    [self.tableView reloadData];
+
 }
 
 - (void) loadView {
@@ -78,6 +92,7 @@ enum {
                                                           relatedBy:NSLayoutRelationEqual toItem:self.view
                                                           attribute:NSLayoutAttributeHeight multiplier:1 constant:0]];
     NSArray *selectResults = [NSArray arrayWithArray:[self.dao selectAll]];
+
     for (RowObject *row in selectResults) {
         [self.collectedShopId addObject:row.id];
     }
@@ -159,8 +174,9 @@ enum {
         [cell insertData:shop];
         BOOL collectFlag = NO;
         for (NSNumber *id in self.collectedShopId) {
+            //NSLog(@"%@,%@")
             if ([[self.tableData[indexPath.row] shopId] isEqual:id]) {
-
+                NSLog(@"%@",id);
                 collectFlag = YES;
                 break;
             }
