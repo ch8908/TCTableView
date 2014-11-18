@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "MainViewController.h"
+#import "CollectedViewController.h"
 #import "UIColor+Util.h"
 
 //#import "NavigationController.h"
@@ -23,10 +24,10 @@
     // Override point for customization after application launch.
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
     MainViewController *mainVC = [[MainViewController alloc] init];
-    MainViewController *otherVC = [[MainViewController alloc] init];
+    CollectedViewController *collectedVC = [[CollectedViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:mainVC];
-    UINavigationController *otherNavigationController = [[UINavigationController alloc] initWithRootViewController:otherVC];
-    NSArray *controllers = @[navigationController, otherNavigationController];
+    UINavigationController *collectedNC = [[UINavigationController alloc] initWithRootViewController:collectedVC];
+    NSArray *controllers = @[navigationController, collectedNC];
     tabBarController.viewControllers = controllers;
     UIImage *anImage = [UIImage imageNamed:@"settings_icon.png"];
     UITabBar *tabBar = tabBarController.tabBar;
@@ -39,7 +40,7 @@
 //    theItem1.title = @"Tab2";
 //    theItem0.image = anImage;
 //    theItem1.image = anImage;
-    theItem0.badgeValue = @"1";
+//    theItem0.badgeValue = @"1";
     [[UITabBar appearance] setTintColor:[UIColor hexARGB:0x3FFF0000]];
     [[UITabBar appearance] setBarTintColor:[UIColor hexARGB:0x33C0C0C0]];
     self.window.rootViewController = tabBarController;

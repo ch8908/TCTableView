@@ -6,6 +6,8 @@
 #import "FMDatabase.h"
 #import "FMResultSet.h"
 #import "RowObject.h"
+#import "Shop.h"
+
 @interface Dao()
 @property (nonatomic, strong) NSArray *resultTable;
 @property (nonatomic, strong) FMDatabase *database;
@@ -35,27 +37,31 @@
 
 }
 
-- (NSArray *) selectAll{
-    NSArray *result = [NSArray array];
-    RowObject *rowObject = [[RowObject alloc] init];
-    FMResultSet *queried = [self.database executeQuery:@"SELECT * FROM SHOP"];
+- (NSArray *) selectAll {
+    NSMutableArray *result = [NSMutableArray array];
+
+    FMResultSet *queried = [self.database executeQuery:@"SELECT * FROM SHOP ORDER BY insert_time"];
     while ([queried next]) {
-        rowObject.id = [NSNumber numberWithInt:[queried intForColumnIndex:0]];
+        RowObject *rowObject = [[RowObject alloc] init];
+        rowObject.id = @([queried intForColumnIndex:0]);
         rowObject.jsonString = [queried stringForColumnIndex:1];
-        rowObject.insert_time = [NSNumber numberWithInt:[queried intForColumnIndex:2]];
-        [result arrayByAddingObject:rowObject];
-        NSLog(@"id %@ | json %@ | insert time %@", rowObject.id, rowObject.jsonString, rowObject.insert_time);
-        NSLog(@"id %@ | json %@ | insert time %@", [result.lastObject id], [result.lastObject jsonString], [result.lastObject insert_time]);
+        rowObject.insert_time = @([queried intForColumnIndex:2]);
+        [result addObject:rowObject];
+//        NSLog(@"id %@ | json %@ | insert time %@", rowObject.id, rowObject.jsonString, rowObject.insert_time);
+//        NSLog(@"id %@ | json %@ | insert time %@", [result.lastObject id], [result.lastObject jsonString], [result.lastObject insert_time]);
     }
+
     return result;
 }
 
-- (void) insert:(NSNumber *) shopId andJson:(NSArray *) jsonArray {
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonArray options:nil error:nil];
+- (void) insert:(NSNumber *) shopId andJson:(NSDictionary *) shopDic {
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:shopDic options:nil error:nil];
     NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     NSString *timestamp = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970] * 1000];
+    NSLog(@"INSERT INTO SHOP (identifier, json, insert_time) VALUES (%@, %@, %@)", shopId, jsonString, timestamp);
     [self.database executeUpdate:@"INSERT INTO SHOP (identifier, json, insert_time) VALUES (?, ?, ?)", shopId,
                                  jsonString, timestamp];
+
 }
 
 - (void) update:(NSNumber *) shopId andJson:(NSArray *) jsonArray {

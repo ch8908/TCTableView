@@ -14,6 +14,7 @@
 #import "Dao.h"
 #import "RowObject.h"
 #import "ShopCell.h"
+
 static NSString *const ReuseIdentifier = @"MyIdentifier";
 
 enum {
@@ -22,13 +23,14 @@ enum {
     TotalSection
 };
 
-@interface MainViewController()<UITableViewDataSource, UITableViewDelegate>
+@interface MainViewController()<UITableViewDataSource, UITableViewDelegate, ShopCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, strong) NSMutableArray *tableData;
 @property (nonatomic, strong) TCClient *client;
 @property (nonatomic, strong) Dao *dao;
 @property (nonatomic, assign) BOOL requestingFlag;
+@property (nonatomic, strong) NSMutableArray *collectedShopId;
 @end
 
 
@@ -44,6 +46,7 @@ enum {
         _refreshControl = [[UIRefreshControl alloc] init];
         _dao = [[Dao alloc] initWithDatabaseName:@"db.sqlite"];
         [_dao createTable];
+        _collectedShopId = [NSMutableArray array];
 
     }
     return self;
@@ -74,6 +77,10 @@ enum {
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.tableView attribute:NSLayoutAttributeHeight
                                                           relatedBy:NSLayoutRelationEqual toItem:self.view
                                                           attribute:NSLayoutAttributeHeight multiplier:1 constant:0]];
+    NSArray *selectResults = [NSArray arrayWithArray:[self.dao selectAll]];
+    for (RowObject *row in selectResults) {
+        [self.collectedShopId addObject:row.id];
+    }
 }
 
 
@@ -140,16 +147,25 @@ enum {
 }
 
 
-
 - (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath {
     if (indexPath.section == ContentsSection) {
 
 //        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ReuseIdentifier forIndexPath:indexPath];
         ShopCell *cell = [tableView dequeueReusableCellWithIdentifier:ReuseIdentifier
                                                          forIndexPath:indexPath];
+        cell.delegate = self;
         Shop *shop = self.tableData[indexPath.row];
+
         [cell insertData:shop];
-//        cell.textLabel.text = shop.name;
+        BOOL collectFlag = NO;
+        for (NSNumber * id in self.collectedShopId) {
+            if([[self.tableData[indexPath.row] shopId] isEqual:id] ){
+
+                collectFlag = YES;
+                break;
+            }
+        }
+        [cell updateCell:shop didCollect:collectFlag];
         return cell;
     }
     else if (indexPath.section == BottomSection) {
@@ -168,25 +184,18 @@ enum {
     [self.navigationController pushViewController:detailTVC animated:YES];
 }
 
-//- (CGFloat) tableView:(UITableView *) tableView heightForFooterInSection:(NSInteger) section {
-//    return 80;
-//}
-//
-//- (UIView *) tableView:(UITableView *) tableView viewForFooterInSection:(NSInteger) section {
-//    return [[FooterView alloc] initFooterViewWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 80)];
-//}
 
 - (void) reloadTableView:(NSArray *) json {
     NSLog(@"...reloading...");
     for (int i = 0; i < [json count]; i++) {
         [self.tableData addObject:[[Shop alloc] initWithJSON:json[i]]];
-        [self.dao insert:[json[i] objectForKey:@"id"] andJson:json[i]];
+        //[self.dao insert:[json[i] objectForKey:@"id"] andJson:json[i]];
     }
-    NSArray * selectResults = [[NSArray alloc] initWithArray:[self.dao selectAll]];
-    NSLog(@"%@",selectResults);
-    for(int i = 0 ; i < [selectResults count] ; i++) {
-        NSLog(@"%@,%@,%@", [selectResults[i] id],[selectResults[i] jsonString],[selectResults[i] insert_time]);
-    }
+//    NSArray * selectResults = [[NSArray alloc] initWithArray:[self.dao selectAll]];
+//    NSLog(@"%@",selectResults);
+//    for(int i = 0 ; i < [selectResults count] ; i++) {
+//        NSLog(@"%@,%@,%@", [selectResults[i] id],[selectResults[i] jsonString],[selectResults[i] insert_time]);
+//    }
     [self.tableView reloadData];
 }
 
@@ -221,6 +230,16 @@ enum {
         }];
         //[self.bottomCell.indicatorView stopAnimating];
     }
+}
+
+#pragma mark ShopCellDelegate
+
+- (void) didClickCollectCell:(ShopCell *) cell button:(UIButton *) button shop:(Shop *) shop {
+    [self.dao insert:shop.shopId
+             andJson:@{@"id" : shop.shopId, @"name" : shop.name, @"lat" : shop.lat, @"lng" : shop.lng,
+               @"is_wifi_free" : shop.isWifiFree,
+               @"power_outlets" : shop.powerOutlets}
+    ];
 }
 
 @end

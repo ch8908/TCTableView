@@ -19,6 +19,7 @@
 		4291297046674A059317221D /* Dao.m in Sources */ = {isa = PBXBuildFile; fileRef = 42912353B7C5BF1AC6E0FF6A /* Dao.m */; };
 		4291299A2C734FCF5FDB5444 /* settings_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 42912F1C4EDC9EE464F1B866 /* settings_icon.png */; };
 		42912A7B149EF1B84A32A331 /* DetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42912BC748554B2B4C275B3D /* DetailTableViewController.m */; };
+		42912BD8CAFEDF9BDA9AAE8B /* CollectedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42912FFCF9018E423E0B236D /* CollectedViewController.m */; };
 		42912C47518152A9D65EBA62 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4291241913885532DC76CD4A /* MainViewController.m */; };
 		42912F901053D6938EBF86CB /* collection_button_icon_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 429128889EDD1ED62912C9EB /* collection_button_icon_normal.png */; };
 		639C4B8FCFEF3B15C0A4ECE6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 174F9B758361345AB7AFC1BA /* libPods.a */; };
@@ -64,8 +65,10 @@
 		42912B9B2F863CD8BA94F11A /* RowObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RowObject.h; sourceTree = "<group>"; };
 		42912BC748554B2B4C275B3D /* DetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewController.m; sourceTree = "<group>"; };
 		42912C2E44534F8949B8BC5A /* Dao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dao.h; sourceTree = "<group>"; };
+		42912D845032524FE3CD3ABF /* CollectedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectedViewController.h; sourceTree = "<group>"; };
 		42912DC813BB85F0CC82DFD7 /* BottomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomCell.h; sourceTree = "<group>"; };
 		42912F1C4EDC9EE464F1B866 /* settings_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_icon.png; sourceTree = "<group>"; };
+		42912FFCF9018E423E0B236D /* CollectedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectedViewController.m; sourceTree = "<group>"; };
 		49EF5621463DAA216CB2B006 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		F89743BB19F8D5E70072D8D3 /* TableViewTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TableViewTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F89743BF19F8D5E70072D8D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -140,6 +143,8 @@
 				4291297EF7C5239ACB65E74A /* MainViewController.h */,
 				429124C4C78A9724C292218D /* UIColor+Util.h */,
 				429121DC8153C187E7790C9C /* UIColor+Util.m */,
+				42912FFCF9018E423E0B236D /* CollectedViewController.m */,
+				42912D845032524FE3CD3ABF /* CollectedViewController.h */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -395,6 +400,7 @@
 				4291297046674A059317221D /* Dao.m in Sources */,
 				429128FAC9A4D3446F08DB95 /* UIColor+Util.m in Sources */,
 				429124B7D15BA8B73A319906 /* ShopCell.m in Sources */,
+				42912BD8CAFEDF9BDA9AAE8B /* CollectedViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

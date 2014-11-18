@@ -5,7 +5,11 @@
 
 #import "CollectedViewController.h"
 #import "DetailTableViewController.h"
+#import "Shop.h"
+#import "ShopCell.h"
+#import "BottomCell.h"
 #import "Dao.h"
+#import "RowObject.h"
 
 static NSString *const ReuseIdentifier = @"MyIdentifier";
 
@@ -52,6 +56,9 @@ enum {
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.tableView attribute:NSLayoutAttributeHeight
                                                           relatedBy:NSLayoutRelationEqual toItem:self.view
                                                           attribute:NSLayoutAttributeHeight multiplier:1 constant:0]];
+
+
+    [self reloadTableView];
 }
 
 
@@ -60,49 +67,12 @@ enum {
     * New method for create table view cell
     * https://developer.apple.com/library/ios/documentation/uikit/reference/UITableView_Class/index.html#//apple_ref/occ/instm/UITableView/registerClass:forCellReuseIdentifier:
     * */
-    self.refreshControl.backgroundColor = [UIColor whiteColor];
-    self.refreshControl.tintColor = [UIColor blackColor];
-    [self.tableView addSubview:self.refreshControl];
-    [self.refreshControl addTarget:self action:@selector(getLatestData)
-                  forControlEvents:UIControlEventValueChanged];
     [self.tableView registerClass:[ShopCell class] forCellReuseIdentifier:ReuseIdentifier];
     [self.tableView registerClass:[BottomCell class] forCellReuseIdentifier:BottomCellReuseIdentifier];
 
 
-    NSLog(@">>>>>>>>>>>> page = 1");
-    [self.client fetchPage:0 completion:^(NSArray *json) {
-        [self reloadTableView:json];
-        //[self.dao insert:<#(NSNumber *)shopId#> andJson:<#(NSArray *)jsonArray#>];
-    }];
 }
 
-- (void) getLatestData {
-    if (self.requestingFlag) {
-        return;
-    }
-    self.requestingFlag = YES;
-
-    NSLog(@"reloading...");
-    [self.client fetchPage:0 completion:^(NSArray *json) {
-        self.requestingFlag = NO;
-        [self.tableData removeAllObjects];
-        for (int i = 0; i < [json count]; i++) {
-            [self.tableData addObject:[[Shop alloc] initWithJSON:json[i]]];
-        }
-        [self.tableView reloadData];
-    }];
-    if (self.refreshControl) {
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"MMM d, h:mm a"];
-        NSString *title = [NSString stringWithFormat:@"Last update: %@", [formatter stringFromDate:[NSDate date]]];
-        NSDictionary *attrsDictionary = @{NSForegroundColorAttributeName : [UIColor blackColor]};
-        NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title
-                                                                              attributes:attrsDictionary];
-        self.refreshControl.attributedTitle = attributedTitle;
-
-        [self.refreshControl endRefreshing];
-    }
-}
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *) tableView {
     return TotalSection;
@@ -118,7 +88,6 @@ enum {
 }
 
 
-
 - (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath {
     if (indexPath.section == ContentsSection) {
 
@@ -127,6 +96,8 @@ enum {
                                                          forIndexPath:indexPath];
         Shop *shop = self.tableData[indexPath.row];
         [cell insertData:shop];
+
+        [cell updateCell:shop didCollect:YES];
 //        cell.textLabel.text = shop.name;
         return cell;
     }
@@ -146,24 +117,28 @@ enum {
     [self.navigationController pushViewController:detailTVC animated:YES];
 }
 
-//- (CGFloat) tableView:(UITableView *) tableView heightForFooterInSection:(NSInteger) section {
-//    return 80;
-//}
-//
-//- (UIView *) tableView:(UITableView *) tableView viewForFooterInSection:(NSInteger) section {
-//    return [[FooterView alloc] initFooterViewWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 80)];
-//}
 
-- (void) reloadTableView:(NSArray *) json {
+- (void) reloadTableView {
     NSLog(@"...reloading...");
-    for (int i = 0; i < [json count]; i++) {
-        [self.tableData addObject:[[Shop alloc] initWithJSON:json[i]]];
-        [self.dao insert:[json[i] objectForKey:@"id"] andJson:json[i]];
-    }
-    NSArray * selectResults = [[NSArray alloc] initWithArray:[self.dao selectAll]];
-    NSLog(@"%@",selectResults);
-    for(int i = 0 ; i < [selectResults count] ; i++) {
-        NSLog(@"%@,%@,%@", [selectResults[i] id],[selectResults[i] jsonString],[selectResults[i] insert_time]);
+//    for (int i = 0; i < [json count]; i++) {
+//        [self.tableData addObject:[[Shop alloc] initWithJSON:json[i]]];
+//        [self.dao insert:[json[i] objectForKey:@"id"] andJson:json[i]];
+//    }
+
+    NSArray *selectResults = [NSArray arrayWithArray:[self.dao selectAll]];
+    NSLog(@"Dao out, count %i", [selectResults count]);
+//    for (int i = 0; i < [selectResults count]; i++) {
+//        NSLog(@"id %@ | json %@ | insert time %@", [selectResults[i] id], [selectResults[i] jsonString], [selectResults[i] insert_time]);
+//    }
+
+    for (RowObject *row in selectResults) {
+        NSLog(@"id %@ | json %@ | insert time %@", row.id, row.jsonString, row.insert_time);
+        NSData *data = [row.jsonString dataUsingEncoding:NSUTF8StringEncoding];
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
+                                                             options:nil
+                                                               error:nil];
+        [self.tableData addObject:[[Shop alloc] initWithJSON:json]];
+
     }
     [self.tableView reloadData];
 }
@@ -175,29 +150,13 @@ enum {
     UIEdgeInsets inset = scrollView.contentInset;
     float y = offset.y + bounds.size.height - inset.bottom;
     float h = size.height;
-//    NSLog(@"offset: %f", offset.y);
-//    NSLog(@"content.height: %f", size.height);
-//    NSLog(@"bounds.height: %f", bounds.size.height);
-//    NSLog(@"inset.top: %f", inset.top);
-//    NSLog(@"inset.bottom: %f", inset.bottom);
-//    NSLog(@"pos: %f of %f", y, h);
     float reload_distance = 10;
     if (y > h + reload_distance) {
-        if (self.requestingFlag) {
-            return;
-        }
         BottomCell *bottomCell = (BottomCell *) [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0
                                                                                                          inSection:BottomSection]];
         NSLog(@"bottomCell...%@", bottomCell);
         [bottomCell addActivityIndicator];
-        self.requestingFlag = YES;
-        int page = ceil(self.tableData.count / (CGFloat) SHOP_PAGE_SIZE);
-        NSLog(@">>>>>>>>>>>> page = %i", page + 1);
-        [self.client fetchPage:page completion:^(NSArray *json) {
-            self.requestingFlag = NO;
-            [self reloadTableView:json];
-        }];
-        //[self.bottomCell.indicatorView stopAnimating];
+
     }
 }
 @end

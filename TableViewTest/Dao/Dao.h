@@ -13,7 +13,7 @@
 
 - (NSArray *) selectAll;
 
-- (void) insert:(NSNumber *) shopId andJson:(NSArray *) jsonArray;
+- (void) insert:(NSNumber *) shopId andJson:(NSDictionary *) shopArray;
 
 - (void) update:(NSNumber *) shopId andJson:(NSArray *) jsonArray;
 
