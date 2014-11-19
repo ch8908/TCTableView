@@ -236,16 +236,21 @@ enum {
 #pragma mark ShopCellDelegate
 
 - (void) didClickCollectCell:(ShopCell *) cell button:(UIButton *) button shop:(Shop *) shop {
-    [self.dao insert:shop.shopId
-             andJson:@{@"id" : shop.shopId, @"name" : shop.name, @"lat" : shop.lat, @"lng" : shop.lng,
-               @"is_wifi_free" : shop.isWifiFree,
-               @"power_outlets" : shop.powerOutlets}
-    ];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"DatabaseChanged" object:nil];
+    if ([self.collectedShopId containsObject:shop.shopId]) {
+        [self.dao delete:shop.shopId];
+        [self.collectedShopId removeObject:shop.shopId];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DatabaseChanged" object:nil];
+        [cell updateCollectState:NO];
+    } else {
+        [self.dao insert:shop.shopId
+                 andJson:@{@"id" : shop.shopId, @"name" : shop.name, @"lat" : shop.lat, @"lng" : shop.lng,
+                   @"is_wifi_free" : shop.isWifiFree,
+                   @"power_outlets" : shop.powerOutlets}
+        ];
+        [self.collectedShopId addObject:shop.shopId];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DatabaseChanged" object:nil];
+        [cell updateCollectState:YES];
+    }
 }
 
-- (void) didClickSelectedCollectCell:(ShopCell *) cell button:(UIButton *) button shop:(Shop *) shop {
-    [self.dao delete:shop.shopId];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"DatabaseChanged" object:nil];
-}
 @end

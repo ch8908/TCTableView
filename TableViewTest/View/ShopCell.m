@@ -79,19 +79,8 @@ NSString *const shopCellReuseIdentifier = @"ShopCell";
 }
 
 - (void) onCollect:(UIButton *) sender {
-    if (1 == sender.state) {
-        NSLog(@">>>>>>>>>>>> sender state = %i", sender.state);
-        if ([self.delegate respondsToSelector:@selector(didClickCollectCell:button:shop:)]) {
-            [self.delegate didClickCollectCell:self button:sender shop:self.shop];
-        }
-        [sender setSelected:YES];
-    }
-    else if (5 == sender.state) {
-        NSLog(@">>>>>>>>>>>> sender state = %i", sender.state);
-        if ([self.delegate respondsToSelector:@selector(didClickSelectedCollectCell:button:shop:)]) {
-            [self.delegate didClickSelectedCollectCell:self button:sender shop:self.shop];
-        }
-        [sender setSelected:NO];
+    if ([self.delegate respondsToSelector:@selector(didClickCollectCell:button:shop:)]) {
+        [self.delegate didClickCollectCell:self button:sender shop:self.shop];
     }
 }
 
@@ -101,5 +90,8 @@ NSString *const shopCellReuseIdentifier = @"ShopCell";
     [self.collectButton setSelected:collect];
 }
 
+- (void) updateCollectState:(BOOL) collect {
+    [self.collectButton setSelected:collect];
+}
 
 @end
