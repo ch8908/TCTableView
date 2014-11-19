@@ -48,14 +48,14 @@ enum {
         [_dao createTable];
         _collectedShopId = [NSMutableArray array];
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(DatabaseChangedByCollectedControllerHandler)
+                                                 selector:@selector(onDatabaseChangedByCollectedControllerHandler)
                                                      name:@"DatabaseChangedByCollectedController" object:nil];
 
     }
     return self;
 }
 
-- (void) DatabaseChangedByCollectedControllerHandler {
+- (void) onDatabaseChangedByCollectedControllerHandler {
     NSLog(@">>>>>>>>>>>>> db changed by cvc reloading");
     NSArray *selectResults = [NSArray arrayWithArray:[self.dao selectAll]];
     [self.collectedShopId removeAllObjects];
@@ -162,7 +162,6 @@ enum {
     return 0;
 }
 
-
 - (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath {
     if (ContentsSection == indexPath.section) {
         ShopCell *cell = [tableView dequeueReusableCellWithIdentifier:ReuseIdentifier forIndexPath:indexPath];
@@ -184,7 +183,6 @@ enum {
     DetailTableViewController *detailTVC = [[DetailTableViewController alloc] initWithShop:self.tableData[indexPath.row]];
     [self.navigationController pushViewController:detailTVC animated:YES];
 }
-
 
 - (void) reloadTableView:(NSArray *) json {
     NSLog(@"...reloading...");
