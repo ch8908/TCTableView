@@ -47,7 +47,8 @@ enum {
         _dao = [[Dao alloc] initWithDatabaseName:@"db.sqlite"];
         [_dao createTable];
         _collectedShopId = [NSMutableArray array];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(DatabaseChangedByCollectedControllerHandler)
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(DatabaseChangedByCollectedControllerHandler)
                                                      name:@"DatabaseChangedByCollectedController" object:nil];
 
     }
@@ -163,32 +164,16 @@ enum {
 
 
 - (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath {
-    if (indexPath.section == ContentsSection) {
-
-//        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ReuseIdentifier forIndexPath:indexPath];
-        ShopCell *cell = [tableView dequeueReusableCellWithIdentifier:ReuseIdentifier
-                                                         forIndexPath:indexPath];
+    if (ContentsSection == indexPath.section) {
+        ShopCell *cell = [tableView dequeueReusableCellWithIdentifier:ReuseIdentifier forIndexPath:indexPath];
         cell.delegate = self;
         Shop *shop = self.tableData[indexPath.row];
-
-        [cell insertData:shop];
-        BOOL collectFlag = NO;
-        for (NSNumber *id in self.collectedShopId) {
-            //NSLog(@"%@,%@")
-            if ([[self.tableData[indexPath.row] shopId] isEqual:id]) {
-                NSLog(@"%@",id);
-                collectFlag = YES;
-                break;
-            }
-        }
-        [cell updateCell:shop didCollect:collectFlag];
+        [cell updateCell:shop didCollect:[self.collectedShopId containsObject:shop.shopId]];
         return cell;
     }
-    else if (indexPath.section == BottomSection) {
+    else if (BottomSection == indexPath.section) {
         BottomCell *bottomCell = [tableView dequeueReusableCellWithIdentifier:BottomCellReuseIdentifier
                                                                  forIndexPath:indexPath];
-        NSLog(@"Bottom cell initialized");
-
         return bottomCell;
     }
     return nil;

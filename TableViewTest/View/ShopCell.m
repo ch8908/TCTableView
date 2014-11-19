@@ -79,38 +79,26 @@ NSString *const shopCellReuseIdentifier = @"ShopCell";
 }
 
 - (void) onCollect:(UIButton *) sender {
-//    NSLog(@"Button clicked");
-//    NSLog(@">>>>>>>>>>>> sender = %i", sender.state );
-//    [sender setSelected:YES];
-//    NSLog(@">>>>>>>>>>>> sender = %i", sender.state );
-//    [sender setSelected:NO];
-//    NSLog(@">>>>>>>>>>>> sender = %i", sender.state );
     if (1 == sender.state) {
         NSLog(@">>>>>>>>>>>> sender state = %i", sender.state);
-        if([self.delegate respondsToSelector:@selector(didClickCollectCell:button:shop:)]){
+        if ([self.delegate respondsToSelector:@selector(didClickCollectCell:button:shop:)]) {
             [self.delegate didClickCollectCell:self button:sender shop:self.shop];
         }
         [sender setSelected:YES];
     }
     else if (5 == sender.state) {
         NSLog(@">>>>>>>>>>>> sender state = %i", sender.state);
-        if([self.delegate respondsToSelector:@selector(didClickSelectedCollectCell:button:shop:)]){
+        if ([self.delegate respondsToSelector:@selector(didClickSelectedCollectCell:button:shop:)]) {
             [self.delegate didClickSelectedCollectCell:self button:sender shop:self.shop];
         }
         [sender setSelected:NO];
     }
 }
 
-- (void) insertData:(Shop *) shop {
-    self.shop = shop;
-    self.shopNameLabel.text = shop.name;
-}
-
 - (void) updateCell:(Shop *) shop didCollect:(BOOL) collect {
     self.shop = shop;
+    self.shopNameLabel.text = shop.name;
     [self.collectButton setSelected:collect];
-
-
 }
 
 

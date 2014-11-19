@@ -11,6 +11,7 @@
 
 @protocol ShopCellDelegate<NSObject>
 - (void) didClickCollectCell:(ShopCell *) cell button:(UIButton *) button shop:(Shop *) shop;
+
 - (void) didClickSelectedCollectCell:(ShopCell *) cell button:(UIButton *) button shop:(Shop *) shop;
 
 @end
@@ -18,10 +19,7 @@
 @interface ShopCell : UITableViewCell
 @property (nonatomic, strong) id<ShopCellDelegate> delegate;
 
-
 - (instancetype) initWithStyle:(UITableViewCellStyle) style reuseIdentifier:(NSString *) reuseIdentifier;
-
-- (void) insertData:(Shop *) shop;
 
 - (void) updateCell:(Shop *) shop didCollect:(BOOL) collect;
 @end

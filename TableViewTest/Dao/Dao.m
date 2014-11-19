@@ -14,9 +14,7 @@
 @property (nonatomic, strong) NSString *table;
 @end
 
-@implementation Dao {
-
-}
+@implementation Dao
 
 - (instancetype) initWithDatabaseName:(NSString *) databaseName {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -68,9 +66,9 @@
 
 }
 
-- (void) delete:(NSNumber *) shopId{
-    NSLog(@"Delete shop id = %@",shopId);
-    [self.database executeUpdate:@"DELETE FROM SHOP WHERE identifier = ?",shopId];
+- (void) delete:(NSNumber *) shopId {
+    NSLog(@"Delete shop id = %@", shopId);
+    [self.database executeUpdate:@"DELETE FROM SHOP WHERE identifier = ?", shopId];
 }
 
 

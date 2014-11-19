@@ -86,14 +86,14 @@ enum {
 }
 
 - (void) tableView:(UITableView *) tableView commitEditingStyle:(UITableViewCellEditingStyle) editingStyle forRowAtIndexPath:(NSIndexPath *) indexPath {
-    if(editingStyle == UITableViewCellEditingStyleDelete ){
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
 
         [self.dao delete:[self.tableData[indexPath.row] shopId]];
         [self.tableData removeObjectAtIndex:indexPath.row];
         [tableView reloadData];
         NSArray *selectResults = [NSArray arrayWithArray:[self.dao selectAll]];
-        for(RowObject *row in selectResults){
-            NSLog(@"ID = %@",row.id);
+        for (RowObject *row in selectResults) {
+            NSLog(@"ID = %@", row.id);
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DatabaseChangedByCollectedController" object:nil];
     }
@@ -114,23 +114,15 @@ enum {
 
 
 - (UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath {
-    if (indexPath.section == ContentsSection) {
-
-//        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ReuseIdentifier forIndexPath:indexPath];
-        ShopCell *cell = [tableView dequeueReusableCellWithIdentifier:ReuseIdentifier
-                                                         forIndexPath:indexPath];
+    if (ContentsSection == indexPath.section) {
+        ShopCell *cell = [tableView dequeueReusableCellWithIdentifier:ReuseIdentifier forIndexPath:indexPath];
         Shop *shop = self.tableData[indexPath.row];
-        [cell insertData:shop];
-
         [cell updateCell:shop didCollect:YES];
-//        cell.textLabel.text = shop.name;
         return cell;
     }
-    else if (indexPath.section == BottomSection) {
+    else if (BottomSection == indexPath.section) {
         BottomCell *bottomCell = [tableView dequeueReusableCellWithIdentifier:BottomCellReuseIdentifier
                                                                  forIndexPath:indexPath];
-        NSLog(@"Bottom cell initialized");
-
         return bottomCell;
     }
     return nil;
