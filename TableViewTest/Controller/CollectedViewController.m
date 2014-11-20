@@ -35,7 +35,6 @@ enum {
         _tableData = [NSMutableArray array];
         _tableView = [[UITableView alloc] init];
         _dao = [[Dao alloc] initWithDatabaseName:@"db.sqlite"];
-        [_dao createTable];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(databaseChangedHandler)
                                                      name:@"DatabaseChanged" object:nil];
 

@@ -8,29 +8,50 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
+#import "Dao.h"
+#import "RowObject.h"
 
 @interface TableViewTestTests : XCTestCase
 
 @end
 
-@implementation TableViewTestTests
+@implementation TableViewTestTests {
+    Dao *dao;
+}
 
-- (void)setUp {
+- (void) setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    dao = [[Dao alloc] initWithDatabaseName:@"db.sqlite"];
+    [dao deleteAll];
+
 }
 
-- (void)tearDown {
+- (void) tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
+
+    [dao deleteAll];
+
 }
 
-- (void)testExample {
+- (void) testDaoInsertandSelect {
     // This is an example of a functional test case.
-    XCTAssert(YES, @"Pass");
+    RowObject *rowObject = [[RowObject alloc] init];
+    rowObject.id = @123;
+    NSDictionary *jsonDic = @{@"id" : @123};
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDic options:nil error:nil];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    rowObject.jsonString = jsonString;
+    rowObject.insert_time = nil;
+    [dao insert:rowObject.id andJson:jsonDic];
+    NSArray *resultArray = [NSArray arrayWithArray:[dao selectAll]];
+    XCTAssertEqual([resultArray[0] id], rowObject.id);
+    XCTAssertEqualObjects([resultArray[0] jsonString], rowObject.jsonString);
+
 }
 
-- (void)testPerformanceExample {
+- (void) testPerformanceExample {
     // This is an example of a performance test case.
     [self measureBlock:^{
         // Put the code you want to measure the time of here.

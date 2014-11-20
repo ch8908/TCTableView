@@ -16,9 +16,9 @@
 		429127FF10361D9AC0C01CD0 /* TCClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 429124D22AEFD1095F691651 /* TCClient.m */; };
 		429128FAC9A4D3446F08DB95 /* UIColor+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 429121DC8153C187E7790C9C /* UIColor+Util.m */; };
 		42912955C5C6E538E352B4C8 /* BottomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 429126440AA5591EFA356D2A /* BottomCell.m */; };
-		4291297046674A059317221D /* Dao.m in Sources */ = {isa = PBXBuildFile; fileRef = 42912353B7C5BF1AC6E0FF6A /* Dao.m */; };
 		4291299A2C734FCF5FDB5444 /* settings_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 42912F1C4EDC9EE464F1B866 /* settings_icon.png */; };
 		42912A7B149EF1B84A32A331 /* DetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42912BC748554B2B4C275B3D /* DetailTableViewController.m */; };
+		42912A9EF51EBB1FBE57DCB4 /* Dao.m in Sources */ = {isa = PBXBuildFile; fileRef = 429122AD73935B00EB1E4676 /* Dao.m */; };
 		42912BD8CAFEDF9BDA9AAE8B /* CollectedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42912FFCF9018E423E0B236D /* CollectedViewController.m */; };
 		42912C47518152A9D65EBA62 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4291241913885532DC76CD4A /* MainViewController.m */; };
 		42912F901053D6938EBF86CB /* collection_button_icon_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 429128889EDD1ED62912C9EB /* collection_button_icon_normal.png */; };
@@ -44,7 +44,7 @@
 		174F9B758361345AB7AFC1BA /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		429121DC8153C187E7790C9C /* UIColor+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Util.m"; sourceTree = "<group>"; };
 		42912228BA0E2DB684B3E836 /* ShopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCell.m; sourceTree = "<group>"; };
-		42912353B7C5BF1AC6E0FF6A /* Dao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dao.m; sourceTree = "<group>"; };
+		429122AD73935B00EB1E4676 /* Dao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dao.m; sourceTree = "<group>"; };
 		4291241913885532DC76CD4A /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		42912439535760A37926BFD1 /* FooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FooterView.m; sourceTree = "<group>"; };
 		42912440BC4F43D9FC45A276 /* DetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTableViewController.h; sourceTree = "<group>"; };
@@ -64,9 +64,9 @@
 		42912AA6043DD4728C4253A0 /* ShopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCell.h; sourceTree = "<group>"; };
 		42912B9B2F863CD8BA94F11A /* RowObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RowObject.h; sourceTree = "<group>"; };
 		42912BC748554B2B4C275B3D /* DetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewController.m; sourceTree = "<group>"; };
-		42912C2E44534F8949B8BC5A /* Dao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dao.h; sourceTree = "<group>"; };
 		42912D845032524FE3CD3ABF /* CollectedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectedViewController.h; sourceTree = "<group>"; };
 		42912DC813BB85F0CC82DFD7 /* BottomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomCell.h; sourceTree = "<group>"; };
+		42912F1872CEAA59B1D535FA /* Dao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dao.h; sourceTree = "<group>"; };
 		42912F1C4EDC9EE464F1B866 /* settings_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_icon.png; sourceTree = "<group>"; };
 		42912FFCF9018E423E0B236D /* CollectedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectedViewController.m; sourceTree = "<group>"; };
 		49EF5621463DAA216CB2B006 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -160,15 +160,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		42912A314931143941088CFA /* Dao */ = {
-			isa = PBXGroup;
-			children = (
-				42912353B7C5BF1AC6E0FF6A /* Dao.m */,
-				42912C2E44534F8949B8BC5A /* Dao.h */,
-			);
-			path = Dao;
-			sourceTree = "<group>";
-		};
 		42912C9E3B859B67D3D45F79 /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +167,15 @@
 				429124D22AEFD1095F691651 /* TCClient.m */,
 			);
 			name = Service;
+			sourceTree = "<group>";
+		};
+		42912CEF527095B90865F5AA /* Dao */ = {
+			isa = PBXGroup;
+			children = (
+				429122AD73935B00EB1E4676 /* Dao.m */,
+				42912F1872CEAA59B1D535FA /* Dao.h */,
+			);
+			path = Dao;
 			sourceTree = "<group>";
 		};
 		E6D673A16A02E2A81CB94AF7 /* Frameworks */ = {
@@ -217,8 +217,8 @@
 				42912C9E3B859B67D3D45F79 /* Service */,
 				429123FBD2F9EE5BFF682E2E /* View */,
 				429127EEAE5CE7AE808D4F32 /* Model */,
-				42912A314931143941088CFA /* Dao */,
 				429122E01D06D011EABFE811 /* Resource */,
+				42912CEF527095B90865F5AA /* Dao */,
 			);
 			path = TableViewTest;
 			sourceTree = "<group>";
@@ -397,10 +397,10 @@
 				4291201519774DBF60AE3EB9 /* Shop.m in Sources */,
 				42912955C5C6E538E352B4C8 /* BottomCell.m in Sources */,
 				4291270D428BA2EBE4C51BC2 /* RowObject.m in Sources */,
-				4291297046674A059317221D /* Dao.m in Sources */,
 				429128FAC9A4D3446F08DB95 /* UIColor+Util.m in Sources */,
 				429124B7D15BA8B73A319906 /* ShopCell.m in Sources */,
 				42912BD8CAFEDF9BDA9AAE8B /* CollectedViewController.m in Sources */,
+				42912A9EF51EBB1FBE57DCB4 /* Dao.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -35,6 +35,10 @@
 
 }
 
+-(void) dropTable {
+    [self.database executeUpdate:@"DROP SHOP"];
+}
+
 - (NSArray *) selectAll {
     NSMutableArray *result = [NSMutableArray array];
 
@@ -71,5 +75,7 @@
     [self.database executeUpdate:@"DELETE FROM SHOP WHERE identifier = ?", shopId];
 }
 
-
+-(void) deleteAll {
+    [self.database executeUpdate:@"DELETE FROM SHOP"];
+}
 @end

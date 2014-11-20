@@ -11,6 +11,8 @@
 
 - (void) createTable;
 
+- (void) dropTable;
+
 - (NSArray *) selectAll;
 
 - (void) insert:(NSNumber *) shopId andJson:(NSDictionary *) shopArray;
@@ -18,4 +20,6 @@
 - (void) update:(NSNumber *) shopId andJson:(NSArray *) jsonArray;
 
 - (void) delete:(NSNumber *) shopId;
+
+- (void) deleteAll;
 @end
