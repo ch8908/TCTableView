@@ -4,23 +4,26 @@
 
 #import "Dao.h"
 #import "FMDatabase.h"
-#import "FMResultSet.h"
 #import "RowObject.h"
-#import "Shop.h"
 
 @interface Dao()
-@property (nonatomic, strong) NSArray *resultTable;
 @property (nonatomic, strong) FMDatabase *database;
-@property (nonatomic, strong) NSString *table;
 @end
 
 @implementation Dao
 
++ (id) sharedDao {
+    static Dao *sharedMyDao = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedMyDao = [[Dao alloc] initWithDatabaseName:@"db.sqlite"];
+    });
+    return sharedMyDao;
+}
+
 - (instancetype) initWithDatabaseName:(NSString *) databaseName {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    //NSLog(@"%@",paths);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    //NSLog(@"%@",documentsDirectory);
+    NSString *documentsDirectory = paths[0];
     NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:databaseName];
     _database = [FMDatabase databaseWithPath:writableDBPath];
     [_database open];

@@ -7,6 +7,9 @@
 @class Shop;
 
 @interface Dao : NSObject
+
++ (id) sharedDao;
+
 - (instancetype) initWithDatabaseName:(NSString *) databaseName;
 
 - (void) createTable;

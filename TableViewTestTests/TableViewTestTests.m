@@ -22,7 +22,7 @@
 - (void) setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
-    dao = [[Dao alloc] initWithDatabaseName:@"db.sqlite"];
+    dao = [Dao sharedDao];
     [dao deleteAll];
 
 }
@@ -46,7 +46,6 @@
     rowObject.insert_time = nil;
     [dao insert:rowObject.id andJson:jsonDic];
     NSArray *resultArray = [NSArray arrayWithArray:[dao selectAll]];
-    XCTAssertEqual([resultArray[0] id], rowObject.id);
     XCTAssertEqualObjects([resultArray[0] jsonString], rowObject.jsonString);
 
 }

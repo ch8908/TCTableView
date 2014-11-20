@@ -44,7 +44,7 @@ enum {
         _client = [[TCClient alloc] init];
         _tableView = [[UITableView alloc] init];
         _refreshControl = [[UIRefreshControl alloc] init];
-        _dao = [[Dao alloc] initWithDatabaseName:@"db.sqlite"];
+        _dao = [Dao sharedDao];
         [_dao createTable];
         _collectedShopId = [NSMutableArray array];
         [[NSNotificationCenter defaultCenter] addObserver:self

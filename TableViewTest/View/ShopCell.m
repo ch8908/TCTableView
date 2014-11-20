@@ -5,7 +5,6 @@
 
 #import "ShopCell.h"
 #import "Shop.h"
-#import "Dao.h"
 
 NSString *const shopCellReuseIdentifier = @"ShopCell";
 
@@ -13,7 +12,6 @@ NSString *const shopCellReuseIdentifier = @"ShopCell";
 @property (nonatomic, strong) UILabel *shopNameLabel;
 @property (nonatomic, strong) UIButton *collectButton;
 @property (nonatomic, strong) Shop *shop;
-@property (nonatomic, strong) Dao *dao;
 @end
 
 @implementation ShopCell {}
