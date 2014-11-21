@@ -6,6 +6,7 @@
 #import "ShopCell.h"
 #import "Shop.h"
 
+NSString *const ReuseIdentifier = @"MyIdentifier";
 NSString *const shopCellReuseIdentifier = @"ShopCell";
 
 @interface ShopCell()

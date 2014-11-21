@@ -8,6 +8,7 @@
 
 @class Shop;
 @class ShopCell;
+extern NSString *const ReuseIdentifier;
 
 @protocol ShopCellDelegate<NSObject>
 - (void) didClickCollectCell:(ShopCell *) cell button:(UIButton *) button shop:(Shop *) shop;
