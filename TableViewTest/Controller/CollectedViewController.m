@@ -10,6 +10,8 @@
 #import "BottomCell.h"
 #import "Dao.h"
 #import "RowObject.h"
+#import "UIViewController+Bean.h"
+#import "Bean.h"
 
 static NSString *const ReuseIdentifier = @"MyIdentifier";
 
@@ -22,7 +24,7 @@ enum {
 @interface CollectedViewController()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *tableData;
-@property (nonatomic, strong) Dao *dao;
+//@property (nonatomic, strong) Dao *dao;
 @end
 
 @implementation CollectedViewController {
@@ -34,7 +36,7 @@ enum {
     if (self) {
         _tableData = [NSMutableArray array];
         _tableView = [[UITableView alloc] init];
-        _dao = [Dao sharedDao];
+//        _dao = [Dao sharedDao];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(databaseChangedHandler)
                                                      name:@"DatabaseChanged" object:nil];
 
@@ -87,10 +89,12 @@ enum {
 - (void) tableView:(UITableView *) tableView commitEditingStyle:(UITableViewCellEditingStyle) editingStyle forRowAtIndexPath:(NSIndexPath *) indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
 
-        [self.dao delete:[self.tableData[indexPath.row] shopId]];
+        [self.bean.dao delete:[self.tableData[indexPath.row] shopId]];
+//        [self.dao delete:[self.tableData[indexPath.row] shopId]];
         [self.tableData removeObjectAtIndex:indexPath.row];
         [tableView reloadData];
-        NSArray *selectResults = [NSArray arrayWithArray:[self.dao selectAll]];
+        NSArray *selectResults = [NSArray arrayWithArray:[self.bean.dao selectAll]];
+//        NSArray *selectResults = [NSArray arrayWithArray:[self.dao selectAll]];
         for (RowObject *row in selectResults) {
             NSLog(@"ID = %@", row.id);
         }
@@ -137,7 +141,8 @@ enum {
 - (void) reloadTableView {
     NSLog(@"...reloading...");
     [self.tableData removeAllObjects];
-    NSArray *selectResults = [NSArray arrayWithArray:[self.dao selectAll]];
+    NSArray *selectResults = [NSArray arrayWithArray:[self.bean.dao selectAll]];
+//    NSArray *selectResults = [NSArray arrayWithArray:[self.dao selectAll]];
 //    NSLog(@"Dao out, count %i", [selectResults count]);
 //    for (int i = 0; i < [selectResults count]; i++) {
 //        NSLog(@"id %@ | json %@ | insert time %@", [selectResults[i] id], [selectResults[i] jsonString], [selectResults[i] insert_time]);

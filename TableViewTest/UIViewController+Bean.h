@@ -4,6 +4,9 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <UIKit/UIKit.h>
+@class Bean;
 @interface UIViewController(Bean)
+-(Bean *) bean;
+
 @end

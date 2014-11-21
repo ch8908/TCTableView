@@ -14,6 +14,8 @@
 #import "Dao.h"
 #import "RowObject.h"
 #import "ShopCell.h"
+#import "UIViewController+Bean.h"
+#import "Bean.h"
 
 static NSString *const ReuseIdentifier = @"MyIdentifier";
 
@@ -27,8 +29,8 @@ enum {
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, strong) NSMutableArray *tableData;
-@property (nonatomic, strong) TCClient *client;
-@property (nonatomic, strong) Dao *dao;
+//@property (nonatomic, strong) TCClient *client;
+//@property (nonatomic, strong) Dao *dao;
 @property (nonatomic, assign) BOOL requestingFlag;
 @property (nonatomic, strong) NSMutableArray *collectedShopId;
 @end
@@ -41,11 +43,12 @@ enum {
     self = [super init];
     if (self) {
         _tableData = [NSMutableArray array];
-        _client = [[TCClient alloc] init];
+//        _client = [[TCClient alloc] init];
         _tableView = [[UITableView alloc] init];
         _refreshControl = [[UIRefreshControl alloc] init];
-        _dao = [Dao sharedDao];
-        [_dao createTable];
+//        _dao = [Dao sharedDao];
+        [self.bean.dao createTable];
+//        [_dao createTable];
         _collectedShopId = [NSMutableArray array];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(onDatabaseChangedByCollectedControllerHandler)
@@ -57,7 +60,8 @@ enum {
 
 - (void) onDatabaseChangedByCollectedControllerHandler {
     NSLog(@">>>>>>>>>>>>> db changed by cvc reloading");
-    NSArray *selectResults = [NSArray arrayWithArray:[self.dao selectAll]];
+    NSArray *selectResults = [NSArray arrayWithArray:[self.bean.dao selectAll]];
+//    NSArray *selectResults = [NSArray arrayWithArray:[self.dao selectAll]];
     [self.collectedShopId removeAllObjects];
     for (RowObject *row in selectResults) {
         [self.collectedShopId addObject:row.id];
@@ -92,7 +96,8 @@ enum {
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.tableView attribute:NSLayoutAttributeHeight
                                                           relatedBy:NSLayoutRelationEqual toItem:self.view
                                                           attribute:NSLayoutAttributeHeight multiplier:1 constant:0]];
-    NSArray *selectResults = [NSArray arrayWithArray:[self.dao selectAll]];
+    NSArray *selectResults = [NSArray arrayWithArray:[self.bean.dao selectAll]];
+//    NSArray *selectResults = [NSArray arrayWithArray:[self.dao selectAll]];
 
     for (RowObject *row in selectResults) {
         [self.collectedShopId addObject:row.id];
@@ -115,10 +120,13 @@ enum {
 
 
     NSLog(@">>>>>>>>>>>> page = 1");
-    [self.client fetchPage:0 completion:^(NSArray *json) {
+    [self.bean.client fetchPage:0 completion:^(NSArray *json) {
         [self reloadTableView:json];
-        //[self.dao insert:<#(NSNumber *)shopId#> andJson:<#(NSArray *)jsonArray#>];
     }];
+//    [self.client fetchPage:0 completion:^(NSArray *json) {
+//        [self reloadTableView:json];
+//        //[self.dao insert:<#(NSNumber *)shopId#> andJson:<#(NSArray *)jsonArray#>];
+//    }];
 }
 
 - (void) getLatestData {
@@ -128,7 +136,7 @@ enum {
     self.requestingFlag = YES;
 
     NSLog(@"reloading...");
-    [self.client fetchPage:0 completion:^(NSArray *json) {
+    [self.bean.client fetchPage:0 completion:^(NSArray *json) {
         self.requestingFlag = NO;
         [self.tableData removeAllObjects];
         for (int i = 0; i < [json count]; i++) {
@@ -136,6 +144,14 @@ enum {
         }
         [self.tableView reloadData];
     }];
+//    [self.client fetchPage:0 completion:^(NSArray *json) {
+//        self.requestingFlag = NO;
+//        [self.tableData removeAllObjects];
+//        for (int i = 0; i < [json count]; i++) {
+//            [self.tableData addObject:[[Shop alloc] initWithJSON:json[i]]];
+//        }
+//        [self.tableView reloadData];
+//    }];
     if (self.refreshControl) {
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"MMM d, h:mm a"];
@@ -223,10 +239,14 @@ enum {
         self.requestingFlag = YES;
         int page = ceil(self.tableData.count / (CGFloat) SHOP_PAGE_SIZE);
         NSLog(@">>>>>>>>>>>> page = %i", page + 1);
-        [self.client fetchPage:page completion:^(NSArray *json) {
+        [self.bean.client fetchPage:page completion:^(NSArray *json) {
             self.requestingFlag = NO;
             [self reloadTableView:json];
         }];
+//        [self.client fetchPage:page completion:^(NSArray *json) {
+//            self.requestingFlag = NO;
+//            [self reloadTableView:json];
+//        }];
         //[self.bottomCell.indicatorView stopAnimating];
     }
 }
@@ -235,16 +255,22 @@ enum {
 
 - (void) didClickCollectCell:(ShopCell *) cell button:(UIButton *) button shop:(Shop *) shop {
     if ([self.collectedShopId containsObject:shop.shopId]) {
-        [self.dao delete:shop.shopId];
+        [self.bean.dao delete:shop.shopId];
+//        [self.dao delete:shop.shopId];
         [self.collectedShopId removeObject:shop.shopId];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DatabaseChanged" object:nil];
         [cell updateCollectState:NO];
     } else {
-        [self.dao insert:shop.shopId
-                 andJson:@{@"id" : shop.shopId, @"name" : shop.name, @"lat" : shop.lat, @"lng" : shop.lng,
-                   @"is_wifi_free" : shop.isWifiFree,
-                   @"power_outlets" : shop.powerOutlets}
+        [self.bean.dao insert:shop.shopId
+                      andJson:@{@"id" : shop.shopId, @"name" : shop.name, @"lat" : shop.lat, @"lng" : shop.lng,
+                        @"is_wifi_free" : shop.isWifiFree,
+                        @"power_outlets" : shop.powerOutlets}
         ];
+//        [self.dao insert:shop.shopId
+//                 andJson:@{@"id" : shop.shopId, @"name" : shop.name, @"lat" : shop.lat, @"lng" : shop.lng,
+//                   @"is_wifi_free" : shop.isWifiFree,
+//                   @"power_outlets" : shop.powerOutlets}
+//        ];
         [self.collectedShopId addObject:shop.shopId];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DatabaseChanged" object:nil];
         [cell updateCollectState:YES];

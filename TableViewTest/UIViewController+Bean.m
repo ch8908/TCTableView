@@ -4,7 +4,11 @@
 //
 
 #import "UIViewController+Bean.h"
-
+#import "Bean.h"
 
 @implementation UIViewController(Bean)
+- (Bean *) bean {
+    return [Bean sharedInstance];
+}
+
 @end

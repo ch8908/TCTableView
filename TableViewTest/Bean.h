@@ -4,7 +4,14 @@
 //
 
 #import <Foundation/Foundation.h>
+@class Dao;
+@class TCClient;
 
 
 @interface Bean : NSObject
+
+@property (nonatomic, strong) Dao *dao;
+@property (nonatomic, strong) TCClient *client;
+
++ (id) sharedInstance;
 @end
